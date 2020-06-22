@@ -31,7 +31,7 @@ mongoose.connection.once('open', function () {
   // we're connected!
   app.use(cors(corsOptions)); // must be before all else app.use functions
 
-  app.use(express.static('public'));
+  // app.use(express.static('public'));
 
   app.use('/uploads', express.static('uploads'));
   // parse application/x-www-form-urlencoded
@@ -40,12 +40,14 @@ mongoose.connection.once('open', function () {
   // parse application/json
   app.use(bodyParser.json());
 
-  app.use('/v1', router);
+  app.use(router);
 
   http.listen(4000, () => {
     console.log('listening on *:4000');
   });
 });
+
+// let interval;
 
 io.on('connection', socket => {
   console.log('a user connected');
@@ -55,10 +57,19 @@ io.on('connection', socket => {
   socket.on('chat message', msg => {
     io.to(msg.channel).emit('chat message', msg);
     console.log('message emited to', msg.channel);
-    // io.emit('chat message', msg);
   });
   socket.on('join channel', channelId => {
     socket.join(channelId);
     console.log('user joined', channelId);
   });
+  // if (interval) {
+  //   clearInterval(interval);
+  // }
+  // interval = setInterval(() => getApiAndEmit(socket), 1000);
 });
+
+// const getApiAndEmit = socket => {
+//   const response = new Date();
+//   // Emitting a new message. Will be consumed by the client
+//   socket.emit('FromAPI', response);
+// };

@@ -21,6 +21,9 @@ const messageContoller = require('../controllers/messageContoller');
 const middleware = require('../middleware/middleware');
 
 //test routes
+router.get('/', (req, res) => {
+  res.send({ response: 'I am alive' }).status(200);
+});
 router.get('/getAllUsers', userController.getAllUsers);
 router.get('/getAllChannels', channelController.getAllChannels);
 router.get('/getAllMessages', messageContoller.getAllMessages);
@@ -56,12 +59,6 @@ router.get(
   channelController.getChannelUsers
 );
 
-// router.get(
-//   '/channel/getMessages/:channelId/:skip/:limit',
-//   middleware.authenticate,
-//   channelController.getChannelMessages
-// );
-
 //message routes
 router.post('/sendMessage/:channelId', middleware.authenticate, messageContoller.send);
 router.get(
@@ -75,4 +72,5 @@ router.get(
   messageContoller.getChannelMsgCount
 );
 router.get('/getAllMessages', middleware.authenticate, messageContoller.getAllMessages);
+
 module.exports = router;

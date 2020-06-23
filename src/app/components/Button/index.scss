@@ -1,0 +1,19 @@
+.Button {
+  padding: 11px 34px;
+  font-size: 1em;
+  background-color: var(--primary);
+  border-radius: 4px;
+  color: var(--light);
+  text-decoration: none;
+  outline: none;
+  line-height: 1em;
+  display: inline-block;
+
+  &--active {
+    background-color: transparent;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: var(--primary-active);
+  }
+}

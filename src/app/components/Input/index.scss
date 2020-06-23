@@ -1,0 +1,33 @@
+.Input {
+  &__box {
+    position: relative;
+    margin-bottom: 1.6em;
+    margin-top: 1em;
+    display: flex;
+  }
+
+  &__icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
+  }
+  &__label {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  &__element {
+    flex-grow: 1;
+    background-color: #ffffff;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    padding: 0 0.5em;
+    width: 100%;
+    height: 50px;
+  }
+}

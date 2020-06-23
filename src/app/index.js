@@ -1,12 +1,21 @@
+import './index.scss';
+
 import React from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
 // import socketIOClient from 'socket.io-client';
 // const ENDPOINT = 'http://127.0.0.1:4000';
 
-import './index.scss';
+import store from './state';
 
+//Components
+import PrivateRoute from './components/Routing/PrivateRoute';
+import PublicRoute from './components/Routing/PublicRoute';
 import PageLayout from './components/PageLayout';
-import Message from './components/Message';
+
 import Chat from './pages/Chat';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   // const [response, setResponse] = useState('');
@@ -20,16 +29,23 @@ function App() {
   // return () => socket.disconnect()
   // }, []);
   return (
-    <PageLayout>
-      <p>hello here</p>
-      <Chat>
-        <Message
-          user={{ name: 'Test user 1', image: '' }}
-          timestamp="06/22/2020"
-          text="sample text"
-        />
-      </Chat>
-    </PageLayout>
+    <Provider store={store}>
+      <Router>
+        <PageLayout>
+          <Switch>
+            <PrivateRoute exact path="/">
+              <Chat />
+            </PrivateRoute>
+            <PublicRoute path="/login">
+              <Login />
+            </PublicRoute>
+            <PublicRoute path="/register">
+              <Register />
+            </PublicRoute>
+          </Switch>
+        </PageLayout>
+      </Router>
+    </Provider>
   );
 }
 

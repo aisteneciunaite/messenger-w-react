@@ -59,17 +59,6 @@ function Register() {
     try {
       if (!credentials.password || !credentials.email)
         throw new Error('Username and password can not be blank');
-
-      // const response = await fetch(SERVER_URL + REGISTER_ENDPOINT, {
-      //   method: 'POST',
-      //   body: JSON.stringify(credentials),
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      // });
-      // if (!response.ok) throw response;
-      // history.push('/login');
-
       dispatch(auth.actions.register(credentials));
     } catch (error) {
       console.log(error);

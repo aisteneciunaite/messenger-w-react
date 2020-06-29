@@ -12,6 +12,7 @@ import Button from '../Button';
 function Header() {
   const dispatch = useDispatch();
   const token = useSelector(auth.selectors.getToken);
+  // const userDetails = useSelector(auth.selectors.getUserDetails);
   const authenticated = !!token;
 
   function handleClick(e) {
@@ -22,14 +23,19 @@ function Header() {
   return (
     <header className="Header">
       <img src={logo} alt="logo" className="Header__Logo" />
-      {authenticated ? (
-        <Button onClick={handleClick}>Sign out</Button>
-      ) : (
-        <div>
-          <Button to="/register">Register</Button>
-          <Button to="/login">Log in</Button>
-        </div>
-      )}
+      <div>
+        {authenticated ? (
+          <>
+            {/* <span>{userDetails.name}</span> */}
+            <Button onClick={handleClick}>Sign out</Button>
+          </>
+        ) : (
+          <>
+            <Button to="/register">Register</Button>
+            <Button to="/login">Log in</Button>
+          </>
+        )}
+      </div>
     </header>
   );
 }

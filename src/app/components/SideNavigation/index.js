@@ -1,23 +1,85 @@
-import React from 'react';
 import './index.scss';
+import React, { useEffect, useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import navLists from '../../../nav-lists';
+import auth from '../../../authentication';
+import messages from '../../../messages';
+
+import plusIcon from '../../assets/icons/plus.svg';
+import Title from '../Title';
+
+function NavList({ title, isloading, submit, children }) {
+  const [inputVisible, setInputVisible] = useState(false);
+  const input = useRef();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    input.current.value.length && submit(input.current.value);
+    toggleForm();
+  };
+
+  const toggleForm = () => setInputVisible(prevState => !prevState);
+
+  return (
+    <>
+      <Title level="5">{title}</Title>
+      <img src={plusIcon} alt="" className="icon" onClick={toggleForm} />
+      {inputVisible && (
+        <form onSubmit={handleSubmit}>
+          <input type="text" name="" id={title + '-to-add'} ref={input} />
+          <button type="submit">+</button>
+        </form>
+      )}
+      {isloading ? (
+        <span>Loading</span>
+      ) : (
+        <nav>
+          <ul>{children}</ul>
+        </nav>
+      )}
+    </>
+  );
+}
 
 function SideNavigation() {
+  const dispatch = useDispatch();
+  const token = useSelector(auth.selectors.getToken);
+
+  const channelsIsLoading = useSelector(navLists.selectors.getIsLoadingChannels);
+  const channels = useSelector(navLists.selectors.getChannels);
+
+  const contactsIsLoading = useSelector(navLists.selectors.getIsLoadingContacts);
+  const contacts = useSelector(navLists.selectors.getContacts);
+
+  useEffect(() => {
+    dispatch(navLists.actions.fethChannelsAndContacts(token));
+  }, [token, dispatch]);
+
+  const saveChannel = name => {
+    dispatch(navLists.actions.newChannel({ token, name }));
+  };
+
+  const saveContact = email => {
+    dispatch(navLists.actions.newContact({ token, email }));
+  };
+
   return (
-    <aside>
-      <h5>Kanalai</h5>
-      <nav>
-        <ul>
-          <li>Kanalas1</li>
-          <li>Kanalas2</li>
-        </ul>
-      </nav>
-      <h5>Kontaktai</h5>
-      <nav>
-        <ul>
-          <li>sample user 1</li>
-          <li>sample user 2</li>
-        </ul>
-      </nav>
+    <aside className="ChatsNavigation">
+      <NavList title="Kanalai" isloading={channelsIsLoading} submit={saveChannel}>
+        {channels.map(channel => (
+          <li
+            key={channel._id}
+            onClick={() => dispatch(messages.actions.enterChannel(channel._id))}
+          >
+            {channel.name}
+          </li>
+        ))}
+      </NavList>
+      <NavList title="Kontaktai" isloading={contactsIsLoading} submit={saveContact}>
+        {contacts.map(contact => (
+          <li key={contact._id}>{contact.username}</li>
+        ))}
+      </NavList>
     </aside>
   );
 }

@@ -10,8 +10,8 @@ function Form(props) {
   return (
     <form className={classes}>
       {props.children}
-      <span className="Form__alert">{props.errorMessage}</span>
-      <Button onClick={props.onSubmit}>{props.submitButtonText}</Button>
+      {props.errorMessage && <span className="Form__alert">{props.errorMessage}</span>}
+      <Button onClick={props.onSubmit}>{props.submitButtonText}</Button>{' '}
     </form>
   );
 }

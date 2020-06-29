@@ -15,7 +15,14 @@ export const login = ({ email, password }) => async dispatch => {
     },
   });
   if (response.ok) {
-    dispatch({ type: types.LOGIN_SUCESS, payload: response.headers.get('x-auth-node') });
+    const payload = await response.json();
+    const userData = { email: payload.email, username: payload.username, image: payload.avatarUrl };
+
+    dispatch({
+      type: types.LOGIN_SUCESS,
+      token: response.headers.get('x-auth-node'),
+      payload: userData,
+    });
   } else {
     dispatch({ type: types.LOGIN_FAILURE, payload: await response.json() });
   }

@@ -3,7 +3,8 @@ const TOKEN_KEY = 'x-auth-node';
 
 const test = ({ dispatch }) => next => action => {
   if (action.type === auth.types.LOGIN_SUCESS) {
-    localStorage.setItem(TOKEN_KEY, action.payload);
+    localStorage.setItem(TOKEN_KEY, action.token);
+    localStorage.setItem('app-user', JSON.stringify(action.payload));
   }
 
   if (action.type === auth.types.LOGOUT_SUCESS) {

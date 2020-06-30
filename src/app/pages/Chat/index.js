@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
+import { socket } from '../../state/middleware/socket';
+
 import messages from '../../../messages';
 import auth from '../../../authentication';
 
@@ -12,17 +15,35 @@ import Button from '../../components/Button';
 
 function Chat({ children }) {
   const dispatch = useDispatch();
-
+  const messageInput = useRef(null);
   const channelId = useSelector(messages.selectors.getChannelId);
   const token = useSelector(auth.selectors.getToken);
   const chatMessages = useSelector(messages.selectors.getMessages);
-  console.log(chatMessages);
 
+  useEffect(() => {
+    socket.on('new message', message => {
+      dispatch(messages.actions.recieveMessage(message));
+    });
+  }, [dispatch]);
+
+  //enter channel from local storage if state does not have one
+  useEffect(() => {
+    if (!channelId) {
+      dispatch(messages.actions.enterChannel(JSON.parse(localStorage.getItem('app-channel'))));
+    }
+  }, [dispatch, channelId]);
+
+  //get channel messages from server
   useEffect(() => {
     if (channelId) {
       dispatch(messages.actions.fetchMessages({ token, channelId, skip: 0 }));
     }
   }, [token, dispatch, channelId]);
+
+  const sendMessage = e => {
+    e.preventDefault();
+    dispatch(messages.actions.sendMessage({ token, channelId, text: messageInput.current.value }));
+  };
 
   return (
     <main className="Chat">
@@ -38,20 +59,10 @@ function Chat({ children }) {
               key={message._id}
             />
           ))}
-          <Message
-            user={{ name: 'Test user 1', image: '' }}
-            timestamp="06/22/2020"
-            text="sample text"
-          />
-          <Message
-            user={{ name: 'Test user 2', image: '' }}
-            timestamp="06/22/2021"
-            text="sample text 2"
-          />
         </div>
 
-        <form className="Chat__form">
-          <Input input={{ type: 'text', id: 'message-input' }}>
+        <form className="Chat__form" onSubmit={sendMessage}>
+          <Input input={{ type: 'text', id: 'message-input', ref: messageInput }}>
             <Button type="submit">{'>'}</Button>
           </Input>
         </form>

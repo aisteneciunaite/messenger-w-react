@@ -1,7 +1,8 @@
 import * as types from './types';
 
 const DEFAULT_STATE = {
-  channelId: localStorage.getItem('app-channel') || null,
+  channelId: null,
+  channelName: null,
   isLoading: false,
   details: {},
   messages: [],
@@ -12,13 +13,15 @@ function msgReducer(state = DEFAULT_STATE, action) {
     case types.MESSAGES_REQ:
       return { ...state, isLoading: true };
     case types.MESSAGES_SUCESS:
-      console.log(action.payload);
       return { ...state, isLoading: false, messages: action.payload };
     case types.MESSAGES_FAILURE:
       return { ...state, isLoading: false };
     case types.ENTER_CHANNEL:
-      return { ...state, channelId: action.channelId };
-
+      return { ...state, channelId: action.channelId, channelName: action.channelName };
+    case types.SEND_SUCESS:
+      return { ...state, isLoading: false };
+    case types.MESSAGE_RECEIVE:
+      return { ...state, messages: [...state.messages, action.payload] };
     default:
       return state;
   }

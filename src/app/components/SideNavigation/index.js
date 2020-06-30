@@ -64,12 +64,16 @@ function SideNavigation() {
   };
 
   return (
-    <aside className="ChatsNavigation">
+    <aside className="SideNav">
       <NavList title="Kanalai" isloading={channelsIsLoading} submit={saveChannel}>
         {channels.map(channel => (
           <li
             key={channel._id}
-            onClick={() => dispatch(messages.actions.enterChannel(channel._id))}
+            onClick={() =>
+              dispatch(
+                messages.actions.enterChannel({ channelId: channel._id, channelName: channel.name })
+              )
+            }
           >
             {channel.name}
           </li>

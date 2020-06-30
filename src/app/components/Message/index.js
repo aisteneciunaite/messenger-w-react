@@ -5,7 +5,9 @@ import './index.scss';
 function Message({ user, timestamp, text }) {
   return (
     <div className="Message">
-      <img src={user.image || avatar} alt="user profile" />
+      <div className="Message__image">
+        <img src={user.image || avatar} alt="user profile" />
+      </div>
       <div>
         <p>
           <b>{user.name}</b>

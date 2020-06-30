@@ -1,5 +1,9 @@
-.ChatsNavigation {
+.SideNav {
+  min-width: 320px;
   .icon {
     height: 30px;
+  }
+  li {
+    cursor: pointer;
   }
 }

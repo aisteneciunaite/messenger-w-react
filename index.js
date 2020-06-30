@@ -54,8 +54,8 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
-  socket.on('chat message', msg => {
-    io.to(msg.channel).emit('chat message', msg);
+  socket.on('new message', msg => {
+    io.to(msg.channel).emit('new message', msg);
     console.log('message emited to', msg.channel);
   });
   socket.on('join channel', channelId => {

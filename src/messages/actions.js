@@ -14,7 +14,28 @@ export const fetchMessages = ({ token, channelId, skip, limit = 10 }) => async d
   else dispatch({ type: types.MESSAGES_FAILURE, error: await response.json() });
 };
 
-export const enterChannel = channelId => {
-  localStorage.setItem('app-channel', channelId);
-  return { type: types.ENTER_CHANNEL, channelId };
+export const enterChannel = ({ channelId, channelName }) => {
+  localStorage.setItem('app-channel', JSON.stringify({ channelId, channelName }));
+  return { type: types.ENTER_CHANNEL, channelId, channelName };
 };
+
+export const sendMessage = ({ channelId, token, text }) => async dispatch => {
+  dispatch({ type: types.SEND_REQ });
+
+  let response = await fetch(`${SERVER_URL}/sendMessage/${channelId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth-node': token,
+    },
+    body: JSON.stringify({ text }),
+  });
+  if (response.ok) {
+    dispatch({ type: types.SEND_SUCESS, payload: await response.json() });
+  } else dispatch({ type: types.SEND_FAILURE, error: await response.json() });
+};
+
+export const recieveMessage = message => ({
+  type: types.MESSAGE_RECEIVE,
+  payload: message,
+});

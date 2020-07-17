@@ -10,7 +10,7 @@ export const fetchMessages = ({ token, channelId, skip, limit = 10 }) => async d
       'x-auth-node': token,
     },
   });
-  if (response.ok) dispatch({ type: types.MESSAGES_SUCESS, payload: await response.json() });
+  if (response.ok) dispatch({ type: types.MESSAGES_SUCCESS, payload: await response.json() });
   else dispatch({ type: types.MESSAGES_FAILURE, error: await response.json() });
 };
 
@@ -31,7 +31,7 @@ export const sendMessage = ({ channelId, token, text }) => async dispatch => {
     body: JSON.stringify({ text }),
   });
   if (response.ok) {
-    dispatch({ type: types.SEND_SUCESS, payload: await response.json() });
+    dispatch({ type: types.SEND_SUCCESS, payload: await response.json() });
   } else dispatch({ type: types.SEND_FAILURE, error: await response.json() });
 };
 

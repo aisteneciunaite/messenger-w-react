@@ -14,7 +14,7 @@ export const fetchUserChannels = token => async dispatch => {
       'x-auth-node': token,
     },
   });
-  if (response.ok) dispatch({ type: types.CHANNELS_SUCESS, payload: await response.json() });
+  if (response.ok) dispatch({ type: types.CHANNELS_SUCCESS, payload: await response.json() });
   else dispatch({ type: types.CHANNELS_FAILURE, error: await response.json() });
 };
 
@@ -28,7 +28,7 @@ export const fetchUserContacts = token => async dispatch => {
     },
   });
 
-  if (response.ok) dispatch({ type: types.CONTACTS_SUCESS, payload: await response.json() });
+  if (response.ok) dispatch({ type: types.CONTACTS_SUCCESS, payload: await response.json() });
   else dispatch({ type: types.CONTACTS_FAILURE, error: await response.json() });
 };
 
@@ -49,7 +49,7 @@ export const newChannel = ({ name, token }) => async dispatch => {
     body: JSON.stringify({ channelName: name }),
   });
 
-  if (response.ok) dispatch({ type: types.NEW_CHANNEL_SUCESS, payload: await response.json() });
+  if (response.ok) dispatch({ type: types.NEW_CHANNEL_SUCCESS, payload: await response.json() });
   else dispatch({ type: types.NEW_CHANNEL_FAILURE, error: await response.json() });
 };
 
@@ -65,6 +65,6 @@ export const newContact = ({ email, token }) => async dispatch => {
     body: JSON.stringify({ email }),
   });
 
-  if (response.ok) dispatch({ type: types.NEW_CONTACT_SUCESS, payload: await response.json() });
+  if (response.ok) dispatch({ type: types.NEW_CONTACT_SUCCESS, payload: await response.json() });
   else dispatch({ type: types.NEW_CONTACT_FAILURE, error: await response.json() });
 };

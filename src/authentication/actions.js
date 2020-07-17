@@ -19,7 +19,7 @@ export const login = ({ email, password }) => async dispatch => {
     const userData = { email: payload.email, username: payload.username, image: payload.avatarUrl };
 
     dispatch({
-      type: types.LOGIN_SUCESS,
+      type: types.LOGIN_SUCCESS,
       token: response.headers.get('x-auth-node'),
       payload: userData,
     });
@@ -38,7 +38,7 @@ export const logout = token => async dispatch => {
     },
   });
   if (response.ok) {
-    dispatch({ type: types.LOGOUT_SUCESS });
+    dispatch({ type: types.LOGOUT_SUCCESS });
   } else {
     dispatch({ type: types.LOGOUT_FAILURE, payload: await response.json() });
   }

@@ -2,12 +2,12 @@ import auth from '../../../authentication';
 const TOKEN_KEY = 'x-auth-node';
 
 const test = ({ dispatch }) => next => action => {
-  if (action.type === auth.types.LOGIN_SUCESS) {
+  if (action.type === auth.types.LOGIN_SUCCESS) {
     localStorage.setItem(TOKEN_KEY, action.token);
     localStorage.setItem('app-user', JSON.stringify(action.payload));
   }
 
-  if (action.type === auth.types.LOGOUT_SUCESS) {
+  if (action.type === auth.types.LOGOUT_SUCCESS) {
     localStorage.removeItem(TOKEN_KEY);
   }
 

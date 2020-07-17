@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { socket } from '../../state/middleware/socket';
@@ -20,6 +20,17 @@ function Chat({ children }) {
   const token = useSelector(auth.selectors.getToken);
   const chatMessages = useSelector(messages.selectors.getMessages);
 
+  const chatWinndow = useRef(null);
+  const chatForm = useRef(null);
+  const chatArea = useRef(null);
+
+  useLayoutEffect(() => {
+    const element = document.querySelector('.Chat__messages');
+    // console.log(chatForm.current.clientHieght)
+    // element && element.styles.setProperty('')
+    console.dir(element);
+  }, []);
+
   useEffect(() => {
     socket.on('new message', message => {
       dispatch(messages.actions.recieveMessage(message));
@@ -28,8 +39,9 @@ function Chat({ children }) {
 
   //enter channel from local storage if state does not have one
   useEffect(() => {
-    if (!channelId) {
-      dispatch(messages.actions.enterChannel(JSON.parse(localStorage.getItem('app-channel'))));
+    let localChannel = JSON.parse(localStorage.getItem('app-channel'));
+    if (!channelId && localChannel) {
+      dispatch(messages.actions.enterChannel(localChannel));
     }
   }, [dispatch, channelId]);
 
@@ -43,6 +55,7 @@ function Chat({ children }) {
   const sendMessage = e => {
     e.preventDefault();
     dispatch(messages.actions.sendMessage({ token, channelId, text: messageInput.current.value }));
+    e.target.reset();
   };
 
   return (
@@ -61,7 +74,7 @@ function Chat({ children }) {
           ))}
         </div>
 
-        <form className="Chat__form" onSubmit={sendMessage}>
+        <form className="Chat__form" onSubmit={sendMessage} ref={chatForm}>
           <Input input={{ type: 'text', id: 'message-input', ref: messageInput }}>
             <Button type="submit">{'>'}</Button>
           </Input>

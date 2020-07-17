@@ -25,8 +25,7 @@ function authReducer(state = DEFAULT_AUTH_STATE, action) {
       return { ...state, login: { ...state.login, loading: true } };
     case types.LOGIN_FAILURE:
       return { ...state, login: { ...state.login, loading: false, error: action.payload } };
-    case types.LOGIN_SUCESS:
-      console.log(action.token);
+    case types.LOGIN_SUCCESS:
       return {
         ...state,
         token: action.token,
@@ -35,7 +34,7 @@ function authReducer(state = DEFAULT_AUTH_STATE, action) {
       };
     case types.LOGOUT_REQ:
       return { ...state, login: { ...state.login, loading: true } };
-    case types.LOGOUT_SUCESS:
+    case types.LOGOUT_SUCCESS:
       return { ...state, token: null, login: { ...state.login, loading: false, error: null } };
     case types.LOGOUT_FAILURE:
       return { ...state, login: { ...state.login, error: action.payload } };

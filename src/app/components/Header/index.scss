@@ -1,10 +1,60 @@
 .Header {
-  background-color: pink;
+  background-color: var(--dark);
+  color: var(--light);
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
   &__Logo {
-    height: 40px;
+    height: 50px;
+  }
+
+  &__Title {
+    display: inline-block;
+  }
+}
+
+.divider-horizontal {
+  width: 0;
+  margin: 0 0.5rem;
+  overflow: hidden;
+  border-left: 1px solid var(--light);
+}
+
+.TopMenu {
+  display: flex;
+
+  .dropdown {
+    &-menu {
+      padding: 0.5em 0;
+      border-radius: 4px;
+      position: absolute;
+      background-color: var(--light);
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-item {
+      margin: 0.5em;
+      &.disabled {
+        cursor: not-allowed;
+        background-color: grey;
+      }
+    }
+  }
+
+  div[type='button'] {
+    cursor: pointer;
+  }
+
+  .flex-center {
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    height: 50px;
+    border-radius: 50%;
   }
 }

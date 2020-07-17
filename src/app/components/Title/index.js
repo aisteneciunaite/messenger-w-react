@@ -2,11 +2,12 @@ import React from 'react';
 import './index.scss';
 import PropTypes from 'prop-types';
 
-function Title({ children, level = 1, onClick }) {
+function Title({ children, level = 1, onClick, className }) {
   const Tag = level > 6 || level < 1 ? 'h1' : `h${level}`;
+  const classList = className ? `Title ${className}` : 'Title';
 
   return (
-    <Tag className="Title" onClick={onClick}>
+    <Tag className={classList} onClick={onClick}>
       {children}
     </Tag>
   );

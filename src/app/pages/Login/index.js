@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import auth from '../../../authentication';
 
-import Form from '../../components/Form';
-import Input from '../../components/Input';
+import Form from '../../components/Common/Form';
+import Input from '../../components/Common/Input';
 
 function Login() {
   const dispatch = useDispatch();

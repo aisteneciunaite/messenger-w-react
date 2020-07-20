@@ -8,10 +8,12 @@ import auth from '../../../authentication';
 
 import './index.scss';
 
-import Message from '../../components/Message';
-import SideNavigation from '../../components/SideNavigation';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+// import Message from '../../components/Chat/Message';
+
+import Message from '../../components/Chat/Message';
+import SideNavigation from '../../components/Chat/SideNavigation';
+import Input from '../../components/Common/Input';
+import Button from '../../components/Common/Button';
 
 function Chat({ children }) {
   const dispatch = useDispatch();

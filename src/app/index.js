@@ -9,9 +9,9 @@ import { Provider } from 'react-redux';
 import store from './state';
 
 //Components
-import PrivateRoute from './components/Routing/PrivateRoute';
-import PublicRoute from './components/Routing/PublicRoute';
-import PageLayout from './components/PageLayout';
+import PrivateRoute from './components/Common/Routing/PrivateRoute';
+import PublicRoute from './components/Common/Routing/PublicRoute';
+import PageLayout from './components/Common/PageLayout';
 
 import Chat from './pages/Chat';
 import Login from './pages/Login';

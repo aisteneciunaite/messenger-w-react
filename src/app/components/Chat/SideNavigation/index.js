@@ -1,12 +1,12 @@
 import './index.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import navLists from '../../../nav-lists';
-import auth from '../../../authentication';
-import messages from '../../../messages';
+import navLists from '../../../../nav-lists';
+import auth from '../../../../authentication';
+import messages from '../../../../messages';
 
-import plusIcon from '../../assets/icons/plus.svg';
-import Title from '../Title';
+import plusIcon from '../../../assets/icons/plus.svg';
+import Title from '../../Common/Title';
 
 function NavList({ title, isloading, submit, children }) {
   const [inputVisible, setInputVisible] = useState(false);
@@ -33,10 +33,10 @@ function NavList({ title, isloading, submit, children }) {
       {isloading ? (
         <span>Loading</span>
       ) : (
-        <nav>
-          <ul>{children}</ul>
-        </nav>
-      )}
+          <nav>
+            <ul>{children}</ul>
+          </nav>
+        )}
     </>
   );
 }

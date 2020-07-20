@@ -1,6 +1,7 @@
 .Message {
   display: flex;
   &__image {
+    margin: 10px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -17,6 +18,8 @@
   }
 
   &__textbox {
+    margin: 10px;
+    flex-grow: 1;
     background-color: rgba(236, 245, 241, 0.71);
     border-radius: 20px;
     padding: 10px 20px;

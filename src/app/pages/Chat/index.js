@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { socket } from '../../state/middleware/socket';
+import { socket } from 'app/state/middleware/socket';
 
-import messages from '../../../messages';
-import auth from '../../../authentication';
+import messages from 'messages';
+import auth from 'authentication';
 
 import './index.scss';
 
 // import Message from '../../components/Chat/Message';
 
-import Message from '../../components/Chat/Message';
-import SideNavigation from '../../components/Chat/SideNavigation';
-import Input from '../../components/Common/Input';
-import Button from '../../components/Common/Button';
+import Message from 'app/components/Chat/Message';
+import SideNavigation from 'app/components/Chat/SideNavigation';
+import Input from 'app/components/Common/Input';
+import Button from 'app/components/Common/Button';
 
 function Chat({ children }) {
   const dispatch = useDispatch();

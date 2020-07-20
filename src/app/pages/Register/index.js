@@ -4,10 +4,10 @@ import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import auth from '../../../authentication';
+import auth from 'authentication';
 
-import Form from '../../components/Common/Form';
-import Input from '../../components/Common/Input';
+import Form from 'app/components/Common/Form';
+import Input from 'app/components/Common/Input';
 
 // const SERVER_URL = 'http://localhost:4000';
 // const REGISTER_ENDPOINT = '/user/register';

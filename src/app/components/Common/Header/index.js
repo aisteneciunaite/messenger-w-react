@@ -1,16 +1,16 @@
 import './index.scss';
-import logo from '../../../assets/images/lotus-flower-1805784_640-min.png';
+import logo from 'app/assets/images/lotus-flower-1805784_640-min.png';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-import auth from '../../../../authentication';
-import messages from '../../../../messages';
+import auth from 'authentication';
+import messages from 'messages';
 
 import Button from '../Button';
 // import Title from '../Title';
 
-import infoIcon from '../../../assets/icons/info.svg';
+import infoIcon from 'app/assets/icons/info.svg';
 
 // modules
 function TopMenu({ userName, channelName, token }) {

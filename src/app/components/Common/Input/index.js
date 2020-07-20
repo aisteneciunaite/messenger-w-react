@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
-import icon from '../../../assets/icons/eye-icon.svg'; //'../../images/eye-icon.svg';
+import icon from 'app/assets/icons/eye-icon.svg';
 
 function Input(props) {
   const { id, labelContent, type, ref, className } = props.input;

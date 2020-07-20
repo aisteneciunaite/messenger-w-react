@@ -2,9 +2,9 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import middleware from './middleware';
-import auth from '../../authentication';
-import navLists from '../../nav-lists';
-import messages from '../../messages';
+import auth from 'authentication';
+import navLists from 'nav-lists';
+import messages from 'messages';
 
 const composeEnhancers = composeWithDevTools({
   trace: true,

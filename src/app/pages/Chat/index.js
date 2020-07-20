@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { socket } from 'app/state/middleware/socket';
@@ -22,20 +22,13 @@ function Chat({ children }) {
   const token = useSelector(auth.selectors.getToken);
   const chatMessages = useSelector(messages.selectors.getMessages);
 
-  const chatWinndow = useRef(null);
-  const chatForm = useRef(null);
-  const chatArea = useRef(null);
+  const containerMessages = useRef(null)
 
-  useLayoutEffect(() => {
-    const element = document.querySelector('.Chat__messages');
-    // console.log(chatForm.current.clientHieght)
-    // element && element.styles.setProperty('')
-    console.dir(element);
-  }, []);
-
+  // listen for new messages
   useEffect(() => {
     socket.on('new message', message => {
       dispatch(messages.actions.recieveMessage(message));
+      containerMessages.current.scrollTop = containerMessages.current.scrollHeight;
     });
   }, [dispatch]);
 
@@ -48,23 +41,32 @@ function Chat({ children }) {
   }, [dispatch, channelId]);
 
   //get channel messages from server
-  useEffect(() => {
+  const getMessages = useCallback(async () => {
     if (channelId) {
-      dispatch(messages.actions.fetchMessages({ token, channelId, skip: 0 }));
+      await dispatch(messages.actions.fetchMessages({ token, channelId, skip: 0 }));
+      containerMessages.current.scrollTop = containerMessages.current.scrollHeight
     }
-  }, [token, dispatch, channelId]);
+  },
+    [token, dispatch, channelId])
+  useEffect(() => {
+    getMessages()
+  }, [getMessages]);
 
+
+  //send new message
   const sendMessage = e => {
     e.preventDefault();
     dispatch(messages.actions.sendMessage({ token, channelId, text: messageInput.current.value }));
     e.target.reset();
+    containerMessages.current.scrollTop = containerMessages.current.scrollHeight;
+
   };
 
   return (
     <main className="Chat">
       <SideNavigation />
       <section className="Chat__window">
-        <div className="Chat__messages">
+        <div className="Chat__messages" ref={containerMessages}>
           {' '}
           {chatMessages.map(message => (
             <Message
@@ -76,7 +78,7 @@ function Chat({ children }) {
           ))}
         </div>
 
-        <form className="Chat__form" onSubmit={sendMessage} ref={chatForm}>
+        <form className="Chat__form" onSubmit={sendMessage}>
           <Input input={{ type: 'text', id: 'message-input', ref: messageInput }}>
             <Button type="submit">{'>'}</Button>
           </Input>

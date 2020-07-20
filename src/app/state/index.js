@@ -3,7 +3,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import middleware from './middleware';
 import auth from 'authentication';
-import navLists from 'nav-lists';
+import channels from 'channels';
+import contacts from 'contacts';
 import messages from 'messages';
 
 const composeEnhancers = composeWithDevTools({
@@ -19,7 +20,8 @@ const allMiddleware =
 const store = createStore(
   combineReducers({
     auth: auth.authReducer,
-    navLists: navLists.userReducer,
+    channels: channels.userReducer,
+    contacts: contacts.userReducer,
     messages: messages.msgReducer,
   }),
   allMiddleware

@@ -22,7 +22,7 @@ send = async (req, res) => {
   try {
     let createdMessage = await message.save();
     await createdMessage.populate('user').execPopulate();
-    // console.log(createdMessage);
+    console.log(createdMessage);
     res.json(createdMessage);
   } catch (error) {
     console.log(error);
@@ -58,8 +58,8 @@ getChannelMsgCount = async (req, res) => {
   }
 };
 
-edit = async (req, res) => {};
-del = async (req, res) => {};
+edit = async (req, res) => { };
+del = async (req, res) => { };
 
 module.exports = {
   send,

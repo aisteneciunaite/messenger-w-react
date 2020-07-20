@@ -21,6 +21,7 @@ function Chat({ children }) {
   const channelId = useSelector(messages.selectors.getChannelId);
   const token = useSelector(auth.selectors.getToken);
   const chatMessages = useSelector(messages.selectors.getMessages);
+  // console.log(chatMessages)
 
   const containerMessages = useRef(null)
 

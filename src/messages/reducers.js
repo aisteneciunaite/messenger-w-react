@@ -13,7 +13,7 @@ function msgReducer(state = DEFAULT_STATE, action) {
     case types.MESSAGES_REQ:
       return { ...state, isLoading: true };
     case types.MESSAGES_SUCCESS:
-      return { ...state, isLoading: false, messages: action.payload };
+      return { ...state, isLoading: false, messages: action.payload.reverse() };
     case types.MESSAGES_FAILURE:
       return { ...state, isLoading: false };
     case types.ENTER_CHANNEL:

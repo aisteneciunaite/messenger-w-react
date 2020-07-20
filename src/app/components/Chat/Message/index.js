@@ -1,22 +1,19 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import avatar from 'app/assets/images/avatar.png';
 import './index.scss';
 
 function Message({ user, timestamp, text }) {
-  const container = useRef(null);
-  useEffect(() => {
-    // console.dir(container.current.clientHeight)
-  })
-
+  const date = new Date(timestamp);
+  const dateString = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
   return (
-    <div className="Message" ref={container}>
+    <div className="Message">
       <div className="Message__image">
         <img src={avatar} alt="user profile" />
       </div>
       <div className="Message__textbox">
         <p>
           <b>{user.name}</b>
-          <i>{timestamp}</i>
+          <i>{dateString}</i>
         </p>
         <p>{text}</p>
       </div>

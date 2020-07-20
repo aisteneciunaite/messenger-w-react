@@ -1,7 +1,8 @@
 import './index.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import navLists from 'nav-lists';
+import channels from 'channels';
+import contacts from 'contacts';
 import auth from 'authentication';
 import messages from 'messages';
 
@@ -45,28 +46,29 @@ function SideNavigation() {
   const dispatch = useDispatch();
   const token = useSelector(auth.selectors.getToken);
 
-  const channelsIsLoading = useSelector(navLists.selectors.getIsLoadingChannels);
-  const channels = useSelector(navLists.selectors.getChannels);
+  const channelsIsLoading = useSelector(channels.selectors.getIsLoadingChannels);
+  const userChannels = useSelector(channels.selectors.getChannels);
 
-  const contactsIsLoading = useSelector(navLists.selectors.getIsLoadingContacts);
-  const contacts = useSelector(navLists.selectors.getContacts);
+  const contactsIsLoading = useSelector(contacts.selectors.getIsLoadingContacts);
+  const userContacts = useSelector(contacts.selectors.getContacts);
 
   useEffect(() => {
-    dispatch(navLists.actions.fethChannelsAndContacts(token));
+    dispatch(channels.actions.fetchUserChannels(token));
+    dispatch(contacts.actions.fetchUserContacts(token))
   }, [token, dispatch]);
 
   const saveChannel = name => {
-    dispatch(navLists.actions.newChannel({ token, name }));
+    dispatch(channels.actions.newChannel({ token, name }));
   };
 
   const saveContact = email => {
-    dispatch(navLists.actions.newContact({ token, email }));
+    dispatch(channels.actions.newContact({ token, email }));
   };
 
   return (
     <aside className="SideNav">
       <NavList title="Kanalai" isloading={channelsIsLoading} submit={saveChannel}>
-        {channels.map(channel => (
+        {userChannels.map(channel => (
           <li
             key={channel._id}
             onClick={() =>
@@ -80,7 +82,7 @@ function SideNavigation() {
         ))}
       </NavList>
       <NavList title="Kontaktai" isloading={contactsIsLoading} submit={saveContact}>
-        {contacts.map(contact => (
+        {userContacts.map(contact => (
           <li key={contact._id}>{contact.username}</li>
         ))}
       </NavList>

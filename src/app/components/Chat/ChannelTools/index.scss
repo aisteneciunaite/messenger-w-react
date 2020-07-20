@@ -1,0 +1,21 @@
+.Channel {
+  background: linear-gradient(35deg, var(--light), transparent);
+  &__tools {
+    img {
+      width: 30px;
+    }
+  }
+
+  &__users {
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+    }
+    img {
+      width: 50px;
+      border-radius: 50%;
+    }
+  }
+}

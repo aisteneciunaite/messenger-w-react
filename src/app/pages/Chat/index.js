@@ -8,14 +8,13 @@ import auth from 'authentication';
 
 import './index.scss';
 
-// import Message from '../../components/Chat/Message';
-
 import Message from 'app/components/Chat/Message';
 import SideNavigation from 'app/components/Chat/SideNavigation';
 import Input from 'app/components/Common/Input';
 import Button from 'app/components/Common/Button';
+import ChannelTools from 'app/components/Chat/ChannelTools';
 
-function Chat({ children }) {
+function Chat() {
   const dispatch = useDispatch();
   const messageInput = useRef(null);
   const channelId = useSelector(messages.selectors.getChannelId);
@@ -23,7 +22,7 @@ function Chat({ children }) {
   const chatMessages = useSelector(messages.selectors.getMessages);
   // console.log(chatMessages)
 
-  const containerMessages = useRef(null)
+  const containerMessages = useRef(null);
 
   // listen for new messages
   useEffect(() => {
@@ -45,14 +44,12 @@ function Chat({ children }) {
   const getMessages = useCallback(async () => {
     if (channelId) {
       await dispatch(messages.actions.fetchMessages({ token, channelId, skip: 0 }));
-      containerMessages.current.scrollTop = containerMessages.current.scrollHeight
+      containerMessages.current.scrollTop = containerMessages.current.scrollHeight;
     }
-  },
-    [token, dispatch, channelId])
+  }, [token, dispatch, channelId]);
   useEffect(() => {
-    getMessages()
+    getMessages();
   }, [getMessages]);
-
 
   //send new message
   const sendMessage = e => {
@@ -60,23 +57,24 @@ function Chat({ children }) {
     dispatch(messages.actions.sendMessage({ token, channelId, text: messageInput.current.value }));
     e.target.reset();
     containerMessages.current.scrollTop = containerMessages.current.scrollHeight;
-
   };
 
   return (
     <main className="Chat">
       <SideNavigation />
       <section className="Chat__window">
-        <div className="Chat__messages" ref={containerMessages}>
-          {' '}
-          {chatMessages.map(message => (
-            <Message
-              user={{ name: message.user.username, image: message.user.avatarUrl }}
-              timestamp={message.createdAt}
-              text={message.text}
-              key={message._id}
-            />
-          ))}
+        <div className="">
+          <div className="Chat__messages Chat__scrollbar" ref={containerMessages}>
+            {' '}
+            {chatMessages.map(message => (
+              <Message
+                user={{ name: message.user.username, image: message.user.avatarUrl }}
+                timestamp={message.createdAt}
+                text={message.text}
+                key={message._id}
+              />
+            ))}
+          </div>
         </div>
 
         <form className="Chat__form" onSubmit={sendMessage}>
@@ -85,6 +83,7 @@ function Chat({ children }) {
           </Input>
         </form>
       </section>
+      <ChannelTools />
     </main>
   );
 }

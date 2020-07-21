@@ -40,7 +40,13 @@ function Input(props) {
         </label>
       )}
       <div className="Input__box">
-        <input className="Input__element" type={state.type} id={id} ref={ref} />
+        <input
+          className="Input__element"
+          type={state.type}
+          id={id}
+          ref={ref}
+          defaultValue={props.input.value}
+        />
         {iconElement}
         {props.children}
       </div>
@@ -56,6 +62,7 @@ Input.propTypes = {
     icon: PropTypes.string,
     autoFocus: PropTypes.bool,
     ref: PropTypes.any,
+    value: PropTypes.string,
   }),
 };
 

@@ -21,7 +21,6 @@ create = async (req, res) => {
     let createdChannel = await channel.save();
     user.channels.push(createdChannel._id);
     await user.save();
-    // console.log(createdChannel);
     res.json(createdChannel);
   } catch (error) {
     res.status(400).json(error);
@@ -33,8 +32,11 @@ update = async (req, res) => {
   let data = req.body;
   console.log(data);
   try {
-    let updatedChannel = await ChannelModel.findByIdAndUpdate(channelId, { name: data.name });
-    // if (!channel) throw 'channel not found';
+    let updatedChannel = await ChannelModel.findByIdAndUpdate(
+      channelId,
+      { name: data.name },
+      { new: true }
+    );
     // channel.name = data.newName;
     // let updatedChannel = await channel.save();
     res.json(updatedChannel);

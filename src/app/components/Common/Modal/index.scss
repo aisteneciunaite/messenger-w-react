@@ -19,13 +19,13 @@
     width: 100%;
     background-color: var(--light);
     border-radius: 0.3rem;
+    padding: 1rem;
   }
 
   &__header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 1rem;
   }
 
   &__title {
@@ -34,10 +34,8 @@
   }
 
   &__body {
-    padding: 1rem;
-  }
-  &__footer {
-    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .close {

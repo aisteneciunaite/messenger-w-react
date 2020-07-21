@@ -5,17 +5,4 @@
       width: 30px;
     }
   }
-
-  &__users {
-    list-style: none;
-
-    li {
-      display: flex;
-      align-items: center;
-    }
-    img {
-      width: 50px;
-      border-radius: 50%;
-    }
-  }
 }

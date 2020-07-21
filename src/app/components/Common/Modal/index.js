@@ -13,7 +13,7 @@ function Modal({ setShowModal, header, children }) {
     }
   }
   return (
-    <div className="Modal" onClick={hideModal}>
+    <div className="Modal" onMouseDown={hideModal}>
       <div className="Modal__dialog" ref={dialog}>
         <div className="Modal__content">
           <div className="Modal__header">

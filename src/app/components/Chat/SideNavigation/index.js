@@ -1,10 +1,10 @@
 import './index.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import channels from 'channels';
 import contacts from 'contacts';
 import auth from 'authentication';
-import messages from 'messages';
 
 import plusIcon from 'app/assets/icons/plus.svg';
 import Title from 'app/components/Common/Title';
@@ -34,10 +34,10 @@ function NavList({ title, isloading, submit, children }) {
       {isloading ? (
         <span>Loading</span>
       ) : (
-          <nav>
-            <ul>{children}</ul>
-          </nav>
-        )}
+        <nav>
+          <ul>{children}</ul>
+        </nav>
+      )}
     </>
   );
 }
@@ -54,7 +54,7 @@ function SideNavigation() {
 
   useEffect(() => {
     dispatch(channels.actions.fetchUserChannels(token));
-    dispatch(contacts.actions.fetchUserContacts(token))
+    dispatch(contacts.actions.fetchUserContacts(token));
   }, [token, dispatch]);
 
   const saveChannel = name => {
@@ -68,16 +68,20 @@ function SideNavigation() {
   return (
     <aside className="SideNav">
       <NavList title="Kanalai" isloading={channelsIsLoading} submit={saveChannel}>
-        {userChannels.map(channel => (
+        {userChannels.map(userChannel => (
           <li
-            key={channel._id}
+            key={userChannel._id}
             onClick={() =>
               dispatch(
-                messages.actions.enterChannel({ channelId: channel._id, channelName: channel.name })
+                channels.actions.openChannel({
+                  channelId: userChannel._id,
+                  channelName: userChannel.name,
+                  token,
+                })
               )
             }
           >
-            {channel.name}
+            {userChannel.name}
           </li>
         ))}
       </NavList>

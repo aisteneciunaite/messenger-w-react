@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { socket } from 'app/state/middleware/socket';
 
 import messages from 'messages';
+import channels from 'channels';
 import auth from 'authentication';
 
 import './index.scss';
@@ -17,14 +18,14 @@ import ChannelTools from 'app/components/Chat/ChannelTools';
 function Chat() {
   const dispatch = useDispatch();
   const messageInput = useRef(null);
-  const channelId = useSelector(messages.selectors.getChannelId);
+  const channelId = useSelector(channels.selectors.getOpenChannelId);
+  const channelName = useSelector(channels.selectors.getOpenChannelName);
   const token = useSelector(auth.selectors.getToken);
   const chatMessages = useSelector(messages.selectors.getMessages);
-  // console.log(chatMessages)
 
   const containerMessages = useRef(null);
 
-  // listen for new messages
+  // listen for new message
   useEffect(() => {
     socket.on('new message', message => {
       dispatch(messages.actions.recieveMessage(message));
@@ -36,9 +37,9 @@ function Chat() {
   useEffect(() => {
     let localChannel = JSON.parse(localStorage.getItem('app-channel'));
     if (!channelId && localChannel) {
-      dispatch(messages.actions.enterChannel(localChannel));
+      dispatch(channels.actions.openChannel({ ...localChannel, token }));
     }
-  }, [dispatch, channelId]);
+  }, [dispatch, channelId, token]);
 
   //get channel messages from server
   const getMessages = useCallback(async () => {
@@ -83,7 +84,7 @@ function Chat() {
           </Input>
         </form>
       </section>
-      <ChannelTools />
+      <ChannelTools channelId={channelId} channelName={channelName} />
     </main>
   );
 }

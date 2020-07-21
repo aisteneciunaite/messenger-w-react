@@ -14,11 +14,6 @@ export const fetchMessages = ({ token, channelId, skip, limit = 10 }) => async d
   else dispatch({ type: types.MESSAGES_FAILURE, error: await response.json() });
 };
 
-export const enterChannel = ({ channelId, channelName }) => {
-  localStorage.setItem('app-channel', JSON.stringify({ channelId, channelName }));
-  return { type: types.ENTER_CHANNEL, channelId, channelName };
-};
-
 export const sendMessage = ({ channelId, token, text }) => async dispatch => {
   dispatch({ type: types.SEND_REQ });
 

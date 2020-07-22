@@ -26,10 +26,12 @@
   display: flex;
 
   .dropdown {
+    position: relative;
     &-menu {
       padding: 0.5em 0;
       border-radius: 4px;
       position: absolute;
+      right: 0;
       background-color: var(--light);
       display: flex;
       flex-direction: column;

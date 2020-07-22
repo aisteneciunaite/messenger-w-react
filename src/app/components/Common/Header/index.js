@@ -54,13 +54,16 @@ function TopMenu({ userName, channelName, token }) {
             </div>
           )}
         </div>
+        {channelName && (
+          <>
+            <div className="divider-horizontal"></div>
 
-        <div className="divider-horizontal"></div>
-
-        <div className="flex-center">
-          <span id="channelName">{channelName}</span>
-          <img src={infoIcon} alt="channel info" />
-        </div>
+            <div className="flex-center">
+              <span id="channelName">{channelName}</span>
+              <img src={infoIcon} alt="channel info" />
+            </div>
+          </>
+        )}
       </nav>
     </>
   );

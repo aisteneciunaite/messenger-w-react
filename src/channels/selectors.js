@@ -6,7 +6,8 @@ export const getOpenChannelId = state => state.channels.openChannel.id;
 
 export const getOpenChannelName = state => {
   if (state.channels.list.length) {
-    return state.channels.list.find(channel => channel._id === getOpenChannelId(state)).name;
+    const channel = state.channels.list.find(channel => channel._id === getOpenChannelId(state));
+    return channel ? channel.name : null;
   }
 };
 

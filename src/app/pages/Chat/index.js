@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { socket } from 'app/state/middleware/socket';
+import './index.scss';
 
+//modules
 import messages from 'messages';
 import channels from 'channels';
 import auth from 'authentication';
 
-import './index.scss';
-
+//components
 import Message from 'app/components/Chat/Message';
 import SideNavigation from 'app/components/Chat/SideNavigation';
 import Input from 'app/components/Common/Input';
@@ -45,7 +45,8 @@ function Chat() {
   const getMessages = useCallback(async () => {
     if (channelId) {
       await dispatch(messages.actions.fetchMessages({ token, channelId, skip: 0 }));
-      containerMessages.current.scrollTop = containerMessages.current.scrollHeight;
+      containerMessages.current &&
+        (containerMessages.current.scrollTop = containerMessages.current.scrollHeight);
     }
   }, [token, dispatch, channelId]);
   useEffect(() => {
@@ -57,34 +58,41 @@ function Chat() {
     e.preventDefault();
     dispatch(messages.actions.sendMessage({ token, channelId, text: messageInput.current.value }));
     e.target.reset();
-    containerMessages.current.scrollTop = containerMessages.current.scrollHeight;
+    containerMessages.current &&
+      (containerMessages.current.scrollTop = containerMessages.current.scrollHeight);
   };
 
   return (
     <main className="Chat">
       <SideNavigation />
-      <section className="Chat__window">
-        <div className="">
-          <div className="Chat__messages Chat__scrollbar" ref={containerMessages}>
-            {' '}
-            {chatMessages.map(message => (
-              <Message
-                user={{ name: message.user.username, image: message.user.avatarUrl }}
-                timestamp={message.createdAt}
-                text={message.text}
-                key={message._id}
-              />
-            ))}
-          </div>
-        </div>
+      {!channelName ? (
+        <p>Welcome page...</p>
+      ) : (
+        <>
+          <section className="Chat__window">
+            <div className="">
+              <div className="Chat__messages Chat__scrollbar" ref={containerMessages}>
+                {' '}
+                {chatMessages.map(message => (
+                  <Message
+                    user={{ name: message.user.username, image: message.user.avatarUrl }}
+                    timestamp={message.createdAt}
+                    text={message.text}
+                    key={message._id}
+                  />
+                ))}
+              </div>
+            </div>
 
-        <form className="Chat__form" onSubmit={sendMessage}>
-          <Input input={{ type: 'text', id: 'message-input', ref: messageInput }}>
-            <Button type="submit">{'>'}</Button>
-          </Input>
-        </form>
-      </section>
-      <ChannelTools channelId={channelId} channelName={channelName} />
+            <form className="Chat__form" onSubmit={sendMessage}>
+              <Input input={{ type: 'text', id: 'message-input', ref: messageInput }}>
+                <Button type="submit">{'>'}</Button>
+              </Input>
+            </form>
+          </section>
+          <ChannelTools channelId={channelId} channelName={channelName} />
+        </>
+      )}
     </main>
   );
 }

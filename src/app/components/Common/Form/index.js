@@ -8,10 +8,10 @@ import Button from '../Button';
 function Form(props) {
   const classes = props.className ? `Form ${props.className}` : 'Form';
   return (
-    <form className={classes}>
+    <form className={classes} onSubmit={props.onSubmit}>
       {props.children}
       {props.errorMessage && <span className="Form__alert">{props.errorMessage}</span>}
-      <Button onClick={props.onSubmit}>{props.submitButtonText}</Button>{' '}
+      <Button type="submit">{props.submitButtonText}</Button>{' '}
     </form>
   );
 }

@@ -28,7 +28,7 @@ function reducer(state = DEFAULT_STATE, action) {
     case types.NEW_CHANNEL_SUCCESS:
       return {
         ...state,
-        list: [action.payload, ...state.channels.list],
+        list: [action.payload, ...state.list],
       };
 
     case types.OPEN_CHANNEL:
@@ -61,6 +61,30 @@ function reducer(state = DEFAULT_STATE, action) {
         ),
       };
     case types.RENAME_CHANNEL_FAILURE:
+      return state;
+
+    case types.LEAVE_CHANNEL_REQ:
+      return state;
+    case types.LEAVE_CHANNEL_SUCCESS:
+      return {
+        ...state,
+        openChannel: {
+          ...DEFAULT_STATE.openChannel,
+        },
+        list: state.list.filter(channel => channel._id !== action.payload._id),
+      };
+    case types.LEAVE_CHANNEL_FAILURE:
+      return state;
+
+    case types.ADD_TO_CHANNEL_REQ:
+      return state;
+    case types.ADD_TO_CHANNEL_SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        openChannel: { ...state.openChannel, users: [...state.openChannel.users, action.payload] },
+      };
+    case types.ADD_TO_CHANNEL_FAILURE:
       return state;
 
     default:

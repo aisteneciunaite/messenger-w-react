@@ -30,15 +30,12 @@ create = async (req, res) => {
 update = async (req, res) => {
   let channelId = req.params.channelId;
   let data = req.body;
-  console.log(data);
   try {
     let updatedChannel = await ChannelModel.findByIdAndUpdate(
       channelId,
       { name: data.name },
       { new: true }
     );
-    // channel.name = data.newName;
-    // let updatedChannel = await channel.save();
     res.json(updatedChannel);
   } catch (error) {
     res.status(400).json(error);

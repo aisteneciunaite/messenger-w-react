@@ -32,10 +32,39 @@ function ChannelTools({ channelId, channelName }) {
   const channelUsers = useSelector(channels.selectors.getOpenChannelUsers);
   const channelUserIds = channelUsers.map(user => user._id);
 
+  const [checkedUserIds, setCheckedUsers] = useState([]);
+
   const handleRenameSubmit = e => {
     e.preventDefault();
     dispatch(channels.actions.renameChannel({ channelId, name: renameInput.current.value, token }));
     setRenameModalVisible(false);
+  };
+
+  const handleDeleteSubmit = e => {
+    e.preventDefault();
+    dispatch(channels.actions.deleteChannel({ channelId, token }));
+    setDeleteModalVisible(false);
+  };
+
+  const handleLeaveSubmit = e => {
+    e.preventDefault();
+    dispatch(channels.actions.leaveChannel({ channelId, token }));
+    setDeleteModalVisible(false);
+  };
+
+  const handleCheckmarkChange = e => {
+    e.persist();
+    e.target.checked
+      ? setCheckedUsers(prev => [...prev, e.target.id])
+      : setCheckedUsers(prev => prev.filter(id => id !== e.target.id));
+  };
+
+  const handleAddSubmit = e => {
+    e.preventDefault();
+    const selectedUsers = checkedUserIds.map(id => userContacts.find(user => user._id === id));
+    selectedUsers.forEach(user => {
+      dispatch(channels.actions.addToChannel({ user, token, channelId }));
+    });
   };
 
   return (
@@ -76,12 +105,12 @@ function ChannelTools({ channelId, channelName }) {
 
       {addModalVisible && (
         <Modal header={`Pridėti į ${channelName}`} setShowModal={setAddModalVisible}>
-          <Form submitButtonText="Pridėti">
+          <Form submitButtonText="Pridėti" onSubmit={handleAddSubmit}>
             {userContacts
               .filter(user => !channelUserIds.includes(user._id))
               .map(user => (
                 <div key={user._id}>
-                  <input type="checkbox" id={user._id} />
+                  <input type="checkbox" id={user._id} onChange={handleCheckmarkChange} />
                   <label htmlFor={user._id}>
                     <UserWithImage user={user} />
                   </label>
@@ -93,7 +122,7 @@ function ChannelTools({ channelId, channelName }) {
 
       {exitModalVisible && (
         <Modal header="Palikti kanalą" setShowModal={setExitModalVisible}>
-          <Form submitButtonText="Taip" className="Modal__body">
+          <Form submitButtonText="Taip" className="Modal__body" onSubmit={handleLeaveSubmit}>
             <p>{`Ar tikrai norite palikti ${channelName} kanalą?`}</p>
           </Form>
         </Modal>
@@ -101,7 +130,7 @@ function ChannelTools({ channelId, channelName }) {
 
       {deleteModalVisible && (
         <Modal header="Panaikinti kanalą" setShowModal={setDeleteModalVisible}>
-          <Form submitButtonText="Taip" className="Modal__body">
+          <Form submitButtonText="Taip" className="Modal__body" onSubmit={handleDeleteSubmit}>
             <p>{`Ar tikrai norite ištrinti ${channelName} kanalą?`}</p>
           </Form>
         </Modal>

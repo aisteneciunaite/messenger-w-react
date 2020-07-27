@@ -5,14 +5,33 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import auth from 'authentication';
 import channels from 'channels';
+import layout from 'app/state/layout';
 
 import Button from '../Button';
 
 import infoIcon from 'app/assets/icons/info.svg';
+import iconMenuOpen from 'app/assets/icons/open-menu.svg';
+import iconMenuClose from 'app/assets/icons/close.svg';
 
-// modules
+//local component
+function BurgerMenu() {
+  const dispatch = useDispatch();
+  const isClosed = useSelector(layout.selectors.isBurgerMenuHidden);
+  const handleClick = () => {
+    dispatch(layout.actions.toggleBurgerMenu(isClosed));
+  };
+
+  return (
+    <button type="button" className="BurgerMenu" onClick={handleClick}>
+      {isClosed ? <img src={iconMenuOpen} alt="menu" /> : <img src={iconMenuClose} alt="menu" />}
+    </button>
+  );
+}
+
+// local component
 function TopMenu({ userName, channelName, token }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const isChannelToolsOpen = useSelector(channels.selectors.getChannelToolsOpenState);
 
   const dispatch = useDispatch();
   function handleClick(e) {
@@ -22,6 +41,10 @@ function TopMenu({ userName, channelName, token }) {
 
   const toggleDropdown = () => {
     setDropdownOpen(prevState => !prevState);
+  };
+
+  const handleChannelClick = () => {
+    dispatch(channels.actions.toggleChannelTools(isChannelToolsOpen));
   };
 
   return (
@@ -44,7 +67,7 @@ function TopMenu({ userName, channelName, token }) {
           </div>
 
           {dropdownOpen && (
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div className="dropdown-menu">
               <Button className="dropdown-item disabled" aria-disabled="true">
                 Keisti slaptažodį
               </Button>
@@ -58,7 +81,7 @@ function TopMenu({ userName, channelName, token }) {
           <>
             <div className="divider-horizontal"></div>
 
-            <div className="flex-center">
+            <div className="flex-center" onClick={handleChannelClick}>
               <span id="channelName">{channelName}</span>
               <img src={infoIcon} alt="channel info" />
             </div>
@@ -68,16 +91,21 @@ function TopMenu({ userName, channelName, token }) {
     </>
   );
 }
-
+// main component
 function Header() {
   const channelName = useSelector(channels.selectors.getOpenChannelName);
+
   const token = useSelector(auth.selectors.getToken);
   const authenticated = !!token;
   const userName = useSelector(auth.selectors.getUserName);
 
   return (
     <header className="Header">
-      <img src={logo} alt="logo" className="Header__Logo" />
+      <div>
+        <img src={logo} alt="logo" className="Header__Logo" />
+        {authenticated && <BurgerMenu />}
+      </div>
+
       <div>
         {authenticated ? (
           <TopMenu userName={userName} channelName={channelName} token={token} />

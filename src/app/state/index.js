@@ -6,6 +6,7 @@ import auth from 'authentication';
 import channels from 'channels';
 import contacts from 'contacts';
 import messages from 'messages';
+import layout from './layout';
 
 const composeEnhancers = composeWithDevTools({
   trace: true,
@@ -20,9 +21,10 @@ const allMiddleware =
 const store = createStore(
   combineReducers({
     auth: auth.authReducer,
-    channels: channels.userReducer,
+    channels: channels.channelsReducer,
     contacts: contacts.userReducer,
     messages: messages.msgReducer,
+    layout: layout.layoutReducer,
   }),
   allMiddleware
 );

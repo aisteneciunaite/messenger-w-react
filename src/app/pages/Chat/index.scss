@@ -2,6 +2,7 @@
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap-reverse;
+  position: relative;
 
   &__window {
     background: linear-gradient(350deg, var(--light), transparent);
@@ -17,6 +18,14 @@
     min-height: 300px;
     max-height: var(--max-height);
     flex-grow: 1;
+  }
+
+  &__form {
+    &__button {
+      img {
+        max-height: 1em;
+      }
+    }
   }
 
   &__scrollbar {

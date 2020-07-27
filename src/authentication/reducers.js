@@ -1,13 +1,8 @@
 import * as types from './types';
-const localUser = JSON.parse(localStorage.getItem('app-user'));
 
 const TOKEN_KEY = 'x-auth-node';
 const DEFAULT_AUTH_STATE = {
-  user: localUser && {
-    email: localUser.email || null,
-    username: localUser.username || null,
-    image: localUser.image || null,
-  },
+  user: JSON.parse(localStorage.getItem('app-user')) || {},
   token: localStorage.getItem(TOKEN_KEY),
   login: {
     loading: false,

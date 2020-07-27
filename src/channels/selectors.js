@@ -12,3 +12,5 @@ export const getOpenChannelName = state => {
 };
 
 export const getOpenChannelUsers = state => state.channels.openChannel.users;
+
+export const getChannelToolsOpenState = state => state.channels.toolsOpen;

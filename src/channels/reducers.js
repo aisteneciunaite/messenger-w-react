@@ -6,6 +6,7 @@ const DEFAULT_STATE = {
     name: null,
     users: [],
   },
+  toolsOpen: false,
   loading: false,
   error: null,
   list: [],
@@ -87,6 +88,13 @@ function reducer(state = DEFAULT_STATE, action) {
     case types.ADD_TO_CHANNEL_FAILURE:
       return state;
 
+    case types.CHANNEL_TOOLS_OPEN:
+      return { ...state, toolsOpen: true };
+    case types.CHANNEL_TOOLS_CLOSE:
+      return { ...state, toolsOpen: false };
+
+    case types.CHANNEL_TOOLS_TOGGLE:
+      return { ...state, toolsOpen: !state.toolsOpen };
     default:
       return state;
   }

@@ -5,9 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import channels from 'channels';
 import contacts from 'contacts';
 import auth from 'authentication';
+import layout from 'app/state/layout';
 
 import plusIcon from 'app/assets/icons/plus.svg';
 import Title from 'app/components/Common/Title';
+import Button from 'app/components/Common/Button';
 
 function NavList({ title, isloading, submit, children }) {
   const [inputVisible, setInputVisible] = useState(false);
@@ -23,12 +25,19 @@ function NavList({ title, isloading, submit, children }) {
 
   return (
     <>
-      <Title level="5">{title}</Title>
-      <img src={plusIcon} alt="" className="icon" onClick={toggleForm} />
+      <div className="SideNav__heading">
+        <Title level="3" className="SideNav__title">
+          {title}
+        </Title>
+        <img src={plusIcon} alt="" className="icon" onClick={toggleForm} />
+      </div>
+
       {inputVisible && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="SideNav__form">
           <input type="text" name="" id={title + '-to-add'} ref={input} />
-          <button type="submit">+</button>
+          <Button type="submit" className="SideNav__button">
+            +
+          </Button>
         </form>
       )}
       {isloading ? (
@@ -43,6 +52,9 @@ function NavList({ title, isloading, submit, children }) {
 }
 
 function SideNavigation() {
+  // const [isHidden, setIsHidden] = useState(true);
+  const isHidden = useSelector(layout.selectors.isBurgerMenuHidden);
+
   const dispatch = useDispatch();
   const token = useSelector(auth.selectors.getToken);
 
@@ -65,8 +77,10 @@ function SideNavigation() {
     dispatch(channels.actions.newContact({ token, email }));
   };
 
+  const classList = isHidden ? 'SideNav SideNav--hidden' : 'SideNav';
+
   return (
-    <aside className="SideNav">
+    <aside className={classList}>
       <NavList title="Kanalai" isloading={channelsIsLoading} submit={saveChannel}>
         {userChannels.map(userChannel => (
           <li

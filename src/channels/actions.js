@@ -125,3 +125,9 @@ export const addToChannel = ({ channelId, token, user }) => async dispatch => {
     dispatch({ type: types.ADD_TO_CHANNEL_SUCCESS, payload: user });
   } else dispatch({ type: types.ADD_TO_CHANNEL_FAILURE, error: await response.json() });
 };
+
+export const toggleChannelTools = isOpen => {
+  if (typeof isOpen === 'boolean') {
+    return { type: isOpen ? types.CHANNEL_TOOLS_CLOSE : types.CHANNEL_TOOLS_OPEN };
+  }
+};

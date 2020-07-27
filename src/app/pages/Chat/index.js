@@ -15,6 +15,9 @@ import Input from 'app/components/Common/Input';
 import Button from 'app/components/Common/Button';
 import ChannelTools from 'app/components/Chat/ChannelTools';
 
+//icons
+import iconSend from 'app/assets/icons/send.svg';
+
 function Chat() {
   const dispatch = useDispatch();
   const messageInput = useRef(null);
@@ -22,6 +25,7 @@ function Chat() {
   const channelName = useSelector(channels.selectors.getOpenChannelName);
   const token = useSelector(auth.selectors.getToken);
   const chatMessages = useSelector(messages.selectors.getMessages);
+  const isChannelToolsOpen = useSelector(channels.selectors.getChannelToolsOpenState);
 
   const containerMessages = useRef(null);
 
@@ -86,11 +90,13 @@ function Chat() {
 
             <form className="Chat__form" onSubmit={sendMessage}>
               <Input input={{ type: 'text', id: 'message-input', ref: messageInput }}>
-                <Button type="submit">{'>'}</Button>
+                <Button type="submit" className="Chat__form__button">
+                  <img src={iconSend} alt="send" />
+                </Button>
               </Input>
             </form>
           </section>
-          <ChannelTools channelId={channelId} channelName={channelName} />
+          {isChannelToolsOpen && <ChannelTools channelId={channelId} channelName={channelName} />}
         </>
       )}
     </main>

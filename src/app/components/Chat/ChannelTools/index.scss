@@ -6,3 +6,14 @@
     }
   }
 }
+
+@media (max-width: 1500px) {
+  .Channel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--light);
+    padding: 0 10px;
+  }
+}

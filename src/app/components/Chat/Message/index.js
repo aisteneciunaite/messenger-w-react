@@ -11,11 +11,11 @@ function Message({ user, timestamp, text }) {
         <img src={avatar} alt="user profile" />
       </div>
       <div className="Message__textbox">
-        <p>
-          <b>{user.name}</b>
-          <i>{dateString}</i>
+        <p className="Message__details">
+          <b className="Message__details Message__details--name">{user.name}</b>
+          <i className="Message__details Message__details--date">{dateString}</i>
         </p>
-        <p>{text}</p>
+        <p className="Message__content">{text}</p>
       </div>
     </div>
   );

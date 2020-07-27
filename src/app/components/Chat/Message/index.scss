@@ -24,4 +24,15 @@
     border-radius: 20px;
     padding: 10px 20px;
   }
+
+  &__details {
+    margin-right: 0.5em;
+    color: var(--dark);
+    font-size: small;
+    // &--name {
+    // }
+
+    // &--date {
+    // }
+  }
 }

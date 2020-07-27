@@ -17,8 +17,7 @@
 
 .divider-horizontal {
   width: 0;
-  margin: 0 0.5rem;
-  overflow: hidden;
+  margin: 5px 0.5rem;
   border-left: 1px solid var(--light);
 }
 
@@ -27,7 +26,9 @@
 
   .dropdown {
     position: relative;
+
     &-menu {
+      z-index: 9;
       padding: 0.5em 0;
       border-radius: 4px;
       position: absolute;
@@ -56,7 +57,19 @@
   }
 
   img {
-    height: 50px;
+    height: 40px;
+    margin: 5px;
     border-radius: 50%;
+  }
+}
+
+.BurgerMenu {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  img {
+    height: 50px;
   }
 }

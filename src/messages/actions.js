@@ -2,6 +2,7 @@ import * as types from './types';
 const SERVER_URL = 'http://localhost:4000';
 
 export const fetchMessages = ({ token, channelId, skip, limit = 10 }) => async dispatch => {
+  if (!channelId || !token) return;
   dispatch({ type: types.MESSAGES_REQ });
 
   let response = await fetch(`${SERVER_URL}/getMessages/${channelId}/${skip}/${limit}`, {
@@ -15,6 +16,8 @@ export const fetchMessages = ({ token, channelId, skip, limit = 10 }) => async d
 };
 
 export const sendMessage = ({ channelId, token, text }) => async dispatch => {
+  if (!channelId || !token || !text) return;
+
   dispatch({ type: types.SEND_REQ });
 
   let response = await fetch(`${SERVER_URL}/sendMessage/${channelId}`, {

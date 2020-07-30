@@ -76,7 +76,7 @@ addContact = async (req, res) => {
       await newContact.save();
     }
     await user.save();
-    res.json(newContact.email + 'contact added');
+    res.json(newContact);
   } catch (error) {
     res.status(400).json(error);
   }

@@ -18,16 +18,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 function App() {
-  // const [response, setResponse] = useState('');
-
-  // useEffect(() => {
-  //   const socket = socketIOClient(ENDPOINT);
-  //   socket.on('FromAPI', data => {
-  //     setResponse(data);
-  //   });
-  // CLEAN UP THE EFFECT
-  // return () => socket.disconnect()
-  // }, []);
   return (
     <Provider store={store}>
       <Router>

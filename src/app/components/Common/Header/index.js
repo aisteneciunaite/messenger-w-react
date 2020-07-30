@@ -29,7 +29,7 @@ function BurgerMenu() {
 }
 
 // local component
-function TopMenu({ userName, channelName, token }) {
+function TopMenu({ userName, channelName, token, userImage }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const isChannelToolsOpen = useSelector(channels.selectors.getChannelToolsOpenState);
 
@@ -60,10 +60,7 @@ function TopMenu({ userName, channelName, token }) {
             >
               {userName}
             </span>
-            <img
-              src="https://pngimage.net/wp-content/uploads/2018/06/no-user-image-png-200x200.png"
-              alt="user"
-            />
+            <img src={userImage} alt="user" />
           </div>
 
           {dropdownOpen && (
@@ -98,6 +95,7 @@ function Header() {
   const token = useSelector(auth.selectors.getToken);
   const authenticated = !!token;
   const userName = useSelector(auth.selectors.getUserName);
+  const userImage = useSelector(auth.selectors.getUserImage);
 
   return (
     <header className="Header">
@@ -108,7 +106,12 @@ function Header() {
 
       <div>
         {authenticated ? (
-          <TopMenu userName={userName} channelName={channelName} token={token} />
+          <TopMenu
+            userName={userName}
+            userImage={userImage}
+            channelName={channelName}
+            token={token}
+          />
         ) : (
           <>
             <Button to="/register">Register</Button>

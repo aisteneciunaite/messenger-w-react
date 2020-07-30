@@ -65,6 +65,7 @@ function ChannelTools({ channelId, channelName }) {
     selectedUsers.forEach(user => {
       dispatch(channels.actions.addToChannel({ user, token, channelId }));
     });
+    setAddModalVisible(false);
   };
 
   return (

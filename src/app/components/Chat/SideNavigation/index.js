@@ -11,7 +11,7 @@ import plusIcon from 'app/assets/icons/plus.svg';
 import Title from 'app/components/Common/Title';
 import Button from 'app/components/Common/Button';
 
-function NavList({ title, isloading, submit, children }) {
+function NavList({ title, isloading, submit, children, placeholder }) {
   const [inputVisible, setInputVisible] = useState(false);
   const input = useRef();
 
@@ -34,7 +34,7 @@ function NavList({ title, isloading, submit, children }) {
 
       {inputVisible && (
         <form onSubmit={handleSubmit} className="SideNav__form">
-          <input type="text" name="" id={title + '-to-add'} ref={input} />
+          <input type="text" placeholder={placeholder} name="" id={title + '-to-add'} ref={input} />
           <Button type="submit" className="SideNav__button">
             +
           </Button>
@@ -52,7 +52,6 @@ function NavList({ title, isloading, submit, children }) {
 }
 
 function SideNavigation() {
-  // const [isHidden, setIsHidden] = useState(true);
   const isHidden = useSelector(layout.selectors.isBurgerMenuHidden);
 
   const dispatch = useDispatch();
@@ -74,14 +73,19 @@ function SideNavigation() {
   };
 
   const saveContact = email => {
-    dispatch(channels.actions.newContact({ token, email }));
+    dispatch(contacts.actions.newContact({ token, email }));
   };
 
   const classList = isHidden ? 'SideNav SideNav--hidden' : 'SideNav';
 
   return (
     <aside className={classList}>
-      <NavList title="Kanalai" isloading={channelsIsLoading} submit={saveChannel}>
+      <NavList
+        title="Kanalai"
+        placeholder="Kanalo pavadinimas"
+        isloading={channelsIsLoading}
+        submit={saveChannel}
+      >
         {userChannels.map(userChannel => (
           <li
             key={userChannel._id}
@@ -99,7 +103,12 @@ function SideNavigation() {
           </li>
         ))}
       </NavList>
-      <NavList title="Kontaktai" isloading={contactsIsLoading} submit={saveContact}>
+      <NavList
+        title="Kontaktai"
+        placeholder="Elektrononis paštas"
+        isloading={contactsIsLoading}
+        submit={saveContact}
+      >
         {userContacts.map(contact => (
           <li key={contact._id}>{contact.username}</li>
         ))}

@@ -1,5 +1,5 @@
 const DEFAULT_STATE = {
-  burgerMenuHidden: false,
+  burgerMenuHidden: true,
 };
 
 const types = {

@@ -7,3 +7,5 @@ export const getUserDetails = state => ({
   name: getUserName(state),
   email: getUserEmail(state),
 });
+
+export const getUserImage = state => state.auth.user.image;

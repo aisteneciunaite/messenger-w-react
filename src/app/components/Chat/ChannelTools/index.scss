@@ -7,6 +7,11 @@
   }
 }
 
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+}
+
 @media (max-width: 1500px) {
   .Channel {
     position: absolute;

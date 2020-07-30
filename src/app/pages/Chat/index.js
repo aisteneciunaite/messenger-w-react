@@ -18,6 +18,15 @@ import ChannelTools from 'app/components/Chat/ChannelTools';
 //icons
 import iconSend from 'app/assets/icons/send.svg';
 
+function WelcomeMessage() {
+  return (
+    <div className="WelcomeMessage">
+      <h1>Labas!</h1>
+      <p>Malonu tave matyti</p>
+    </div>
+  );
+}
+
 function Chat() {
   const dispatch = useDispatch();
   const messageInput = useRef(null);
@@ -70,7 +79,7 @@ function Chat() {
     <main className="Chat">
       <SideNavigation />
       {!channelName ? (
-        <p>Welcome page...</p>
+        <WelcomeMessage />
       ) : (
         <>
           <section className="Chat__window">

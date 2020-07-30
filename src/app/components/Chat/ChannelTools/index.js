@@ -68,6 +68,8 @@ function ChannelTools({ channelId, channelName }) {
     setAddModalVisible(false);
   };
 
+  const eligableUsers = userContacts.filter(user => !channelUserIds.includes(user._id));
+
   return (
     <>
       <aside className="Channel">
@@ -107,16 +109,18 @@ function ChannelTools({ channelId, channelName }) {
       {addModalVisible && (
         <Modal header={`Pridėti į ${channelName}`} setShowModal={setAddModalVisible}>
           <Form submitButtonText="Pridėti" onSubmit={handleAddSubmit}>
-            {userContacts
-              .filter(user => !channelUserIds.includes(user._id))
-              .map(user => (
-                <div key={user._id}>
+            {eligableUsers.length === 0 ? (
+              <p>Nėra ką pridėti...</p>
+            ) : (
+              eligableUsers.map(user => (
+                <div className="checkboxContainer" key={user._id}>
                   <input type="checkbox" id={user._id} onChange={handleCheckmarkChange} />
                   <label htmlFor={user._id}>
                     <UserWithImage user={user} />
                   </label>
                 </div>
-              ))}
+              ))
+            )}
           </Form>
         </Modal>
       )}

@@ -53,3 +53,24 @@
     }
   }
 }
+
+.WelcomeMessage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  // background: rgb(255, 255, 255);
+  background-image: url('../../assets/images/lotus-flower-1805784_640-min.png');
+  background: radial-gradient(circle, #ffffffc2 25%, rgba(255, 255, 255, 0) 74%),
+    url('../../assets/images/lotus-flower-1805784_640-min.png');
+  background-position-x: center;
+  background-repeat: no-repeat;
+
+  h1 {
+    font-size: 4rem;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+}

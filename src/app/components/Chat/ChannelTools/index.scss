@@ -1,5 +1,6 @@
 .Channel {
   background: linear-gradient(35deg, var(--light), transparent);
+  flex: 0 0 400px;
   &__tools {
     img {
       width: 30px;

@@ -39,13 +39,16 @@ function Input(props) {
           {labelContent}
         </label>
       )}
+
       <div className="Input__box">
+        <div className="Input__error">{props.error}</div>
         <input
-          className="Input__element"
+          className={props.error ? 'Input__element Input__element--alert' : 'Input__element'}
           type={state.type}
           id={id}
           ref={ref}
           defaultValue={props.input.value}
+          required={props.input.required}
         />
         {iconElement}
         {props.children}
@@ -62,7 +65,9 @@ Input.propTypes = {
     icon: PropTypes.string,
     autoFocus: PropTypes.bool,
     ref: PropTypes.any,
+    required: PropTypes.bool,
     value: PropTypes.string,
+    error: PropTypes.string,
   }),
 };
 

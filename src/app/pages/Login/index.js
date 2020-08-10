@@ -24,12 +24,14 @@ function Login() {
       labelContent: 'Email',
       type: 'email',
       ref: usernameInput,
+      required: true,
     },
     {
       id: 'password',
       labelContent: 'Password',
       type: 'password',
       ref: passwordInout,
+      required: true,
     },
   ];
 

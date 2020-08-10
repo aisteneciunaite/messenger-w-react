@@ -9,3 +9,7 @@ export const getUserDetails = state => ({
 });
 
 export const getUserImage = state => state.auth.user.image;
+
+export const getRegisterError = state => state.auth.register.error;
+
+export const getLoginError = state => state.auth.login.error;

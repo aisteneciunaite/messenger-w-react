@@ -1,0 +1,32 @@
+.Field {
+  &__box {
+    position: relative;
+    margin-bottom: 1.6em;
+    margin-top: 1em;
+    display: flex;
+  }
+
+  &__icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
+    max-height: 100%;
+  }
+  &__label {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  &__error {
+    color: red;
+    text-align: end;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateY(-100%);
+  }
+}

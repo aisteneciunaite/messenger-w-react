@@ -11,7 +11,9 @@ import auth from 'authentication';
 //components
 import Message from 'app/components/Chat/Message';
 import SideNavigation from 'app/components/Chat/SideNavigation';
+// import Input from 'app/components/Common/Input';
 import Input from 'app/components/Common/Input';
+
 import Button from 'app/components/Common/Button';
 import ChannelTools from 'app/components/Chat/ChannelTools';
 
@@ -98,11 +100,10 @@ function Chat() {
             </div>
 
             <form className="Chat__form" onSubmit={sendMessage}>
-              <Input input={{ type: 'text', id: 'message-input', ref: messageInput }}>
-                <Button type="submit" className="Chat__form__button">
-                  <img src={iconSend} alt="send" />
-                </Button>
-              </Input>
+              <Input input={{ type: 'text', id: 'message-input', ref: messageInput }} />
+              <Button type="submit" className="Chat__form__button">
+                <img src={iconSend} alt="send" />
+              </Button>
             </form>
           </section>
           {isChannelToolsOpen && <ChannelTools channelId={channelId} channelName={channelName} />}

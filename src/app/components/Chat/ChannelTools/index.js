@@ -99,9 +99,7 @@ function ChannelTools({ channelId, channelName }) {
       {renameModalVisible && (
         <Modal header="Keisti kanalo pavadinimą" setShowModal={setRenameModalVisible}>
           <Form submitButtonText="Išsaugoti" className="Modal__body" onSubmit={handleRenameSubmit}>
-            <Input
-              input={{ id: 'changeName', type: 'text', ref: renameInput, value: channelName }}
-            />
+            <Input ref={renameInput} value={channelName} />
           </Form>
         </Modal>
       )}

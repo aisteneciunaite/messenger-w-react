@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import auth from 'authentication';
 
 import Form from 'app/components/Common/Form';
-import Input from 'app/components/Common/Input';
+import Field from 'app/components/Common/Field';
 
 const passwordValidator = {
   digit: {
@@ -139,10 +139,10 @@ function Register() {
   return (
     <main className="Register">
       <Form onSubmit={handleSubmit} submitButtonText="Registruotis">
-        <Input input={inputs.username} error={usernameError} />
-        <Input input={inputs.email} error={emailError} />
-        <Input input={inputs.password} error={passwordError} />
-        <Input input={inputs.repeatPassword} error={passwordRepeatError} />
+        <Field input={inputs.username} error={usernameError} />
+        <Field input={inputs.email} error={emailError} />
+        <Field input={inputs.password} error={passwordError} />
+        <Field input={inputs.repeatPassword} error={passwordRepeatError} />
       </Form>
     </main>
   );

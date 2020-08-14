@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import auth from 'authentication';
 
 import Form from 'app/components/Common/Form';
-import Input from 'app/components/Common/Input';
+import Field from 'app/components/Common/Field';
 
 function Login() {
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ function Login() {
         submitButtonText="Sign In"
       >
         {inputs.map(input => (
-          <Input input={input} key={input.id} />
+          <Field input={input} key={input.id} />
         ))}
       </Form>
     </main>

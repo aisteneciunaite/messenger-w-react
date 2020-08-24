@@ -101,7 +101,7 @@ function Chat() {
 
             <form className="Chat__form" onSubmit={sendMessage}>
               <Input input={{ type: 'text', id: 'message-input', ref: messageInput }} />
-              <Button type="submit" className="Chat__form__button">
+              <Button type="submit" className="Button Chat__form__button">
                 <img src={iconSend} alt="send" />
               </Button>
             </form>

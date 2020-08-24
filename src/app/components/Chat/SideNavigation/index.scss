@@ -4,6 +4,15 @@
   color: var(--light);
   padding: 0 13px 0 26px;
 
+  &__Button--clear {
+    cursor: pointer;
+    background: none;
+    color: inherit;
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
+  }
+
   &__heading {
     display: flex;
     align-items: center;
@@ -32,7 +41,6 @@
     padding: 0;
   }
   li {
-    cursor: pointer;
     padding: 0.2em 0;
   }
 }

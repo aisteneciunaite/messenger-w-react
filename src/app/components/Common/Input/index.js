@@ -11,7 +11,7 @@ const Input = React.forwardRef(({ className, domProps, validateInput }, ref) => 
       className={classList}
       ref={ref}
       onBlur={() => {
-        validateInput(ref.current.value);
+        validateInput && validateInput(ref.current.value);
       }}
     />
   );

@@ -29,13 +29,15 @@ function NavList({ title, isloading, submit, children, placeholder }) {
         <Title level="3" className="SideNav__title">
           {title}
         </Title>
-        <img src={plusIcon} alt="" className="icon" onClick={toggleForm} />
+        <button className="Button--clear" onClick={toggleForm}>
+          <img src={plusIcon} alt="" className="icon" />
+        </button>
       </div>
 
       {inputVisible && (
         <form onSubmit={handleSubmit} className="SideNav__form">
           <input type="text" placeholder={placeholder} name="" id={title + '-to-add'} ref={input} />
-          <Button type="submit" className="SideNav__button">
+          <Button type="submit" className="Button SideNav__button">
             +
           </Button>
         </form>
@@ -87,19 +89,21 @@ function SideNavigation() {
         submit={saveChannel}
       >
         {userChannels.map(userChannel => (
-          <li
-            key={userChannel._id}
-            onClick={() =>
-              dispatch(
-                channels.actions.openChannel({
-                  channelId: userChannel._id,
-                  channelName: userChannel.name,
-                  token,
-                })
-              )
-            }
-          >
-            {userChannel.name}
+          <li key={userChannel._id}>
+            <button
+              className="SideNav__Button--clear"
+              onClick={() =>
+                dispatch(
+                  channels.actions.openChannel({
+                    channelId: userChannel._id,
+                    channelName: userChannel.name,
+                    token,
+                  })
+                )
+              }
+            >
+              {userChannel.name}
+            </button>
           </li>
         ))}
       </NavList>
@@ -110,7 +114,9 @@ function SideNavigation() {
         submit={saveContact}
       >
         {userContacts.map(contact => (
-          <li key={contact._id}>{contact.username}</li>
+          <li key={contact._id}>
+            <button className="SideNav__Button--clear">{contact.username}</button>
+          </li>
         ))}
       </NavList>
     </aside>

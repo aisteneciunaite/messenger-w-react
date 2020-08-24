@@ -51,7 +51,7 @@ function TopMenu({ userName, channelName, token, userImage }) {
     <>
       <nav className="TopMenu">
         <div className="dropdown">
-          <div className="flex-center" type="button" onClick={toggleDropdown}>
+          <button className="Button--clear flex-center" type="button" onClick={toggleDropdown}>
             <span
               className="userName"
               id="userName"
@@ -61,14 +61,14 @@ function TopMenu({ userName, channelName, token, userImage }) {
               {userName}
             </span>
             <img src={userImage} alt="user" />
-          </div>
+          </button>
 
           {dropdownOpen && (
             <div className="dropdown-menu">
-              <Button className="dropdown-item disabled" aria-disabled="true">
+              <Button className="Button dropdown-item disabled" aria-disabled="true">
                 Keisti slaptažodį
               </Button>
-              <Button className="dropdown-item" onClick={handleClick}>
+              <Button className="Button dropdown-item" onClick={handleClick}>
                 Atsijungti
               </Button>
             </div>
@@ -78,10 +78,10 @@ function TopMenu({ userName, channelName, token, userImage }) {
           <>
             <div className="divider-horizontal"></div>
 
-            <div className="flex-center" onClick={handleChannelClick}>
+            <button className="Button--clear flex-center" onClick={handleChannelClick}>
               <span id="channelName">{channelName}</span>
               <img src={infoIcon} alt="channel info" />
-            </div>
+            </button>
           </>
         )}
       </nav>

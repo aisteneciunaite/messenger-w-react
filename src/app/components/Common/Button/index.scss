@@ -6,7 +6,6 @@
   border: none;
   color: var(--light);
   text-decoration: none;
-  outline: none;
   line-height: 1em;
   display: inline-block;
 
@@ -19,5 +18,14 @@
   }
   &:active {
     background-color: var(--secondary-active);
+  }
+
+  &--clear {
+    cursor: pointer;
+    background: none;
+    color: inherit;
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
   }
 }

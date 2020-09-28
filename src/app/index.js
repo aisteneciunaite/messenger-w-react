@@ -1,6 +1,6 @@
 import './index.scss';
 
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 // import socketIOClient from 'socket.io-client';
@@ -13,26 +13,28 @@ import PrivateRoute from './components/Common/Routing/PrivateRoute';
 import PublicRoute from './components/Common/Routing/PublicRoute';
 import PageLayout from './components/Common/PageLayout';
 
-import Chat from './pages/Chat';
-import Login from './pages/Login';
-import Register from './pages/Register';
+const Chat = lazy(() => import('./pages/Chat'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <PageLayout>
-          <Switch>
-            <PrivateRoute exact path="/">
-              <Chat />
-            </PrivateRoute>
-            <PublicRoute path="/login">
-              <Login />
-            </PublicRoute>
-            <PublicRoute path="/register">
-              <Register />
-            </PublicRoute>
-          </Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <PrivateRoute exact path="/">
+                <Chat />
+              </PrivateRoute>
+              <PublicRoute path="/login">
+                <Login />
+              </PublicRoute>
+              <PublicRoute path="/register">
+                <Register />
+              </PublicRoute>
+            </Switch>
+          </Suspense>
         </PageLayout>
       </Router>
     </Provider>

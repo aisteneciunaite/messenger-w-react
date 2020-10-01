@@ -1,4 +1,4 @@
-import auth from '../../../authentication';
+import auth from '../../../store/authentication';
 const TOKEN_KEY = 'x-auth-node';
 
 const test = ({ dispatch }) => next => action => {

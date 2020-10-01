@@ -2,9 +2,9 @@ import './index.scss';
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import channels from 'channels';
-import contacts from 'contacts';
-import auth from 'authentication';
+import channels from 'store/channels';
+import contacts from 'store/contacts';
+import auth from 'store/authentication';
 import layout from 'app/state/layout';
 
 import plusIcon from 'app/assets/icons/plus.svg';

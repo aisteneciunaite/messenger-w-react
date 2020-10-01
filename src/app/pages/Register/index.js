@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import auth from 'authentication';
+import auth from 'store/authentication';
 
 import inputValidators from 'app/helpers/inputValidators';
 

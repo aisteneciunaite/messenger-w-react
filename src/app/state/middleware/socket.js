@@ -1,7 +1,7 @@
 import socketIOClient from 'socket.io-client';
 
-import messages from 'messages';
-import channels from 'channels';
+import messages from 'store/messages';
+import channels from 'store/channels';
 export const socket = socketIOClient('http://localhost:4000');
 
 const socketMiddleware = ({ dispatch }) => next => action => {

@@ -4,9 +4,9 @@ import { socket } from 'app/state/middleware/socket';
 import './index.scss';
 
 //modules
-import messages from 'messages';
-import channels from 'channels';
-import auth from 'authentication';
+import messages from 'store/messages';
+import channels from 'store/channels';
+import auth from 'store/authentication';
 
 //components
 import Message from 'app/components/Chat/Message';

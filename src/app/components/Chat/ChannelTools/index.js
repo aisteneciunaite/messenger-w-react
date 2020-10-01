@@ -15,9 +15,9 @@ import iconEdit from 'app/assets/icons/pencil.svg';
 import iconExit from 'app/assets/icons/exit.svg';
 import UserWithImage from '../UserWIthImage';
 //modules
-import contacts from 'contacts';
-import channels from 'channels';
-import auth from 'authentication';
+import contacts from 'store/contacts';
+import channels from 'store/channels';
+import auth from 'store/authentication';
 
 function ChannelTools({ channelId, channelName }) {
   const [renameModalVisible, setRenameModalVisible] = useState(false);

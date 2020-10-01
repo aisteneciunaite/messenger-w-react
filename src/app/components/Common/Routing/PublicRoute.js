@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import auth from '../../../../authentication';
+import auth from '../../../../store/authentication';
 
 export function PublicRoute(props) {
   const authenticated = useSelector(state => !!auth.selectors.getToken(state));

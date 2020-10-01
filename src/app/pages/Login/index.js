@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import auth from 'authentication';
+import auth from 'store/authentication';
 
 import Form from 'app/components/Common/Form';
 import Field from 'app/components/Common/Field';

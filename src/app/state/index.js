@@ -2,10 +2,10 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import middleware from './middleware';
-import auth from 'authentication';
-import channels from 'channels';
-import contacts from 'contacts';
-import messages from 'messages';
+import auth from 'store/authentication';
+import channels from 'store/channels';
+import contacts from 'store/contacts';
+import messages from 'store/messages';
 import layout from './layout';
 
 const composeEnhancers = composeWithDevTools({

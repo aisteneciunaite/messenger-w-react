@@ -114,8 +114,8 @@ function Header() {
           />
         ) : (
           <>
-            <Button to="/register">Register</Button>
-            <Button to="/login">Log in</Button>
+            <Button to="/register">Registruotis</Button>
+            <Button to="/login">Prisijungti</Button>
           </>
         )}
       </div>

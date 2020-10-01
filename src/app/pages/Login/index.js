@@ -23,7 +23,7 @@ function Login() {
       id: 'email',
       value: emailValue,
       setValue: setEmailValue,
-      labelContent: 'Email',
+      labelContent: 'Elektroninis paštas',
       type: 'email',
       required: true,
       autoFocus: true,
@@ -32,7 +32,7 @@ function Login() {
       id: 'password',
       value: passwordValue,
       setValue: setPasswordValue,
-      labelContent: 'Password',
+      labelContent: 'Slaptažodis',
       type: 'password',
       required: true,
     },
@@ -63,7 +63,7 @@ function Login() {
       <Form
         errorMessage={!!status.error && 'Login failed'}
         onSubmit={handleSubmit}
-        submitButtonText="Sign In"
+        submitButtonText="Prisijungti"
       >
         {inputs.map(input => (
           <Field input={input} key={input.id} />

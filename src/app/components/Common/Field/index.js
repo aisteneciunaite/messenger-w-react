@@ -43,7 +43,7 @@ function Field({ input, setError, className }) {
             defaultValue: input.default,
             required: input.required,
             onChange: e => {
-              setError(null);
+              setError && setError(null);
               input.setValue(e.target.value);
             },
           }}

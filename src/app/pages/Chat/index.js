@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { socket } from 'app/state/middleware/socket';
 import './index.scss';
@@ -31,7 +31,6 @@ function WelcomeMessage() {
 
 function Chat() {
   const dispatch = useDispatch();
-  const messageInput = useRef(null);
   const channelId = useSelector(channels.selectors.getOpenChannelId);
   const channelName = useSelector(channels.selectors.getOpenChannelName);
   const token = useSelector(auth.selectors.getToken);
@@ -39,6 +38,8 @@ function Chat() {
   const isChannelToolsOpen = useSelector(channels.selectors.getChannelToolsOpenState);
 
   const containerMessages = useRef(null);
+
+  const [messageValue, setMessageValue] = useState('');
 
   // listen for new message
   useEffect(() => {
@@ -71,7 +72,7 @@ function Chat() {
   //send new message
   const sendMessage = e => {
     e.preventDefault();
-    dispatch(messages.actions.sendMessage({ token, channelId, text: messageInput.current.value }));
+    dispatch(messages.actions.sendMessage({ token, channelId, text: messageValue }));
     e.target.reset();
     containerMessages.current &&
       (containerMessages.current.scrollTop = containerMessages.current.scrollHeight);
@@ -100,7 +101,15 @@ function Chat() {
             </div>
 
             <form className="Chat__form" onSubmit={sendMessage}>
-              <Input input={{ type: 'text', id: 'message-input', ref: messageInput }} />
+              <Input
+                value={messageValue}
+                // setValue={setMessageValue}
+                domProps={{
+                  type: 'text',
+                  id: 'message-input',
+                  onChange: e => setMessageValue(e.target.value),
+                }}
+              />
               <Button type="submit" className="Button Chat__form__button">
                 <img src={iconSend} alt="send" />
               </Button>

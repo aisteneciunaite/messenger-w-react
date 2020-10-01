@@ -23,6 +23,7 @@ function Field({ input, setError, className }) {
   function togglePasswordDisplay() {
     inputType === 'password' ? setInputType('text') : setInputType('password');
   }
+
   return (
     <div className={classes}>
       {input.labelContent && (
@@ -34,16 +35,18 @@ function Field({ input, setError, className }) {
       <div className="Field__box">
         <div className="Field__error">{input.error}</div>
         <Input
+          setValue={input.setValue}
           domProps={{
             type: inputType,
             id: input.id,
-            defaultValue: input.value,
+            autoFocus: input.autoFocus,
+            defaultValue: input.default,
             required: input.required,
-            onChange: () => {
-              if (input.error) setError(null);
+            onChange: e => {
+              setError(null);
+              input.setValue(e.target.value);
             },
           }}
-          ref={input.ref}
           validateInput={validateInput}
         />
         {input.type === 'password' && (
@@ -68,7 +71,6 @@ Field.propTypes = {
     type: PropTypes.oneOf(['email', 'number', 'password', 'search', 'text']).isRequired,
     icon: PropTypes.string,
     autoFocus: PropTypes.bool,
-    ref: PropTypes.any,
     required: PropTypes.bool,
     value: PropTypes.string,
     error: PropTypes.string,

@@ -1,6 +1,6 @@
 const inputValidators = {
   hasDigit: {
-    expression: new RegExp('(?=.*\\d)'),
+    expression: new RegExp('(?=.*[0-9])'),
     errorMessage: 'Turi būti bent vienas skaičius',
   },
   hasUppercase: {

@@ -1,6 +1,6 @@
 import './index.scss';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,22 +15,25 @@ function Login() {
   const authenticated = useSelector(state => !!auth.selectors.getToken(state));
   const status = useSelector(state => auth.selectors.getStatus(state));
 
-  const usernameInput = useRef(null);
-  const passwordInout = useRef(null);
+  const [emailValue, setEmailValue] = useState(null);
+  const [passwordValue, setPasswordValue] = useState(null);
 
   const inputs = [
     {
       id: 'email',
+      value: emailValue,
+      setValue: setEmailValue,
       labelContent: 'Email',
       type: 'email',
-      ref: usernameInput,
       required: true,
+      autoFocus: true,
     },
     {
       id: 'password',
+      value: passwordValue,
+      setValue: setPasswordValue,
       labelContent: 'Password',
       type: 'password',
-      ref: passwordInout,
       required: true,
     },
   ];
@@ -38,8 +41,8 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     const credentials = {
-      email: usernameInput.current.value,
-      password: passwordInout.current.value,
+      email: emailValue,
+      password: passwordValue,
     };
 
     try {
@@ -54,10 +57,6 @@ function Login() {
   useEffect(() => {
     authenticated && history.replace('/');
   }, [history, authenticated]);
-
-  useEffect(() => {
-    usernameInput.current.focus();
-  }, []);
 
   return (
     <main className="Login">

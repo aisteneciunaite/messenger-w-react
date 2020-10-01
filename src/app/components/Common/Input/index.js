@@ -2,20 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
 
-const Input = React.forwardRef(({ className, domProps, validateInput }, ref) => {
+function Input({ className, domProps, value, validateInput }) {
   const classList = className ? `Input ${className}` : 'Input';
 
   return (
     <input
       {...domProps}
       className={classList}
-      ref={ref}
-      onBlur={() => {
-        validateInput && validateInput(ref.current.value);
+      value={value}
+      onBlur={e => {
+        validateInput && validateInput(e.target.value);
       }}
     />
   );
-});
+}
 
 Input.propTypes = {
   className: PropTypes.string,

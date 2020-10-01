@@ -1,6 +1,6 @@
 import './index.scss';
 
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -18,13 +18,20 @@ function Register() {
 
   const registrationError = useSelector(auth.selectors.getRegisterError);
 
+  const [usernameValue, setUsernameValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [repeatPasswordValue, setRepeatPasswordValue] = useState('');
+
   const [inputs, setInputs] = useState({
     username: {
       id: 'username',
       labelContent: 'Vardas',
+      value: usernameValue,
+      setValue: setUsernameValue,
       type: 'text',
       required: true,
-      ref: useRef(null),
+      autoFocus: true,
       error: null,
       validators: [
         inputValidators.minLength(4),
@@ -35,18 +42,20 @@ function Register() {
     email: {
       id: 'email',
       labelContent: 'Elektroninis paštas',
+      value: emailValue,
+      setValue: setEmailValue,
       type: 'email',
       required: true,
-      ref: useRef(null),
       error: null,
       validators: [inputValidators.isValidEmail],
     },
     password: {
       id: 'password',
       labelContent: 'Slaptažodis',
+      value: passwordValue,
+      setValue: setPasswordValue,
       type: 'password',
       required: true,
-      ref: useRef(null),
       error: null,
       validators: [
         inputValidators.minLength(8),
@@ -58,9 +67,10 @@ function Register() {
     repeatPassword: {
       id: 'passwordRepeat',
       labelContent: 'Pakartoti slaptažodį',
+      value: repeatPasswordValue,
+      setValue: setRepeatPasswordValue,
       type: 'password',
       required: true,
-      ref: useRef(null),
       error: null,
       validators: [],
     },
@@ -81,12 +91,11 @@ function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { username, email, password, repeatPassword } = inputs;
     const credentials = {
-      email: email.ref.current.value,
-      password: password.ref.current.value,
-      username: username.ref.current.value,
-      repeatPassword: repeatPassword.ref.current.value,
+      email: emailValue,
+      password: passwordValue,
+      username: usernameValue,
+      repeatPassword: repeatPasswordValue,
     };
 
     if (formState.isValid) {
@@ -107,10 +116,6 @@ function Register() {
       setInputError('email', 'Toks vartotojas jau egzistuoja');
     }
   }, [registrationError, setInputError]);
-
-  useEffect(() => {
-    inputs.username.ref.current.focus();
-  }, [inputs.username.ref]);
 
   return (
     <main className="Register">
